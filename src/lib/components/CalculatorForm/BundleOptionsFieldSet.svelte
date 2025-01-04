@@ -5,6 +5,20 @@
 
 	type Props = Pick<CalculatorForm, 'bundles'>;
 	let { bundles = $bindable() }: Props = $props();
+
+	function addBundle() {
+		bundles.push({
+			buy: 1,
+			free: 0,
+			key: crypto.randomUUID(),
+			name: '',
+			round: null
+		});
+	}
+
+	function removeBundle(index: number) {
+		bundles.splice(index, 1);
+	}
 </script>
 
 <FieldSet class="grow" title="Bundle Options">
@@ -21,7 +35,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each bundles as bundle (bundle.key)}
+			{#each bundles as bundle, index (bundle.key)}
 				<tr>
 					<td class="w-full px-2 py-1.5">
 						<Input aria-label="Name" class="w-full" id="" type="text" bind:value={bundle.name} />
@@ -59,12 +73,14 @@
 							bind:value={bundle.round}
 						/>
 					</td>
-					<td class="px-2 py-1.5"><button class="text-xs">╳</button></td>
+					<td class="px-2 py-1.5">
+						<button class="text-xs" onclick={() => removeBundle(index)}>╳</button>
+					</td>
 				</tr>
 			{/each}
 			<tr>
 				<td colspan="5" class="p-3">
-					<button class="text-blue-700">+ Add Bundle</button>
+					<button class="text-blue-700" onclick={addBundle}>+ Add Bundle</button>
 				</td>
 			</tr>
 		</tbody>

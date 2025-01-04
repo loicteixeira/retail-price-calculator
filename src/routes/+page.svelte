@@ -13,7 +13,7 @@
 </script>
 
 <div class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-	<form class="flex flex-row flex-wrap gap-6">
+	<form class="flex flex-row flex-wrap gap-6" novalidate>
 		<div class="flex grow flex-col gap-6">
 			<CalculatorForm.ProductInfoFieldSet
 				currencySymbol={form.currencySymbol}
