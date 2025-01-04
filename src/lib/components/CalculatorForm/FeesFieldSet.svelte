@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { CalculatorForm } from '$lib/types';
+	import Button from '../Button.svelte';
 	import FieldSet from '../FieldSet.svelte';
 	import Input from '../Input.svelte';
 
@@ -50,13 +51,13 @@
 						</select>
 					</td>
 					<td class="px-2 py-1.5">
-						<button class="text-xs" onclick={() => removeFee(index)}>╳</button>
+						<Button onclick={() => removeFee(index)}>╳</Button>
 					</td>
 				</tr>
 			{/each}
 			<tr>
-				<td colspan="5" class="p-3">
-					<button class="text-blue-700" onclick={addFee}>+ Add Fee</button>
+				<td colspan="5" class="p-3 text-center">
+					<Button variant="primary" onclick={addFee}>+ Add Fee</Button>
 				</td>
 			</tr>
 		</tbody>

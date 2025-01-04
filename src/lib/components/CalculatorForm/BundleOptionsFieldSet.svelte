@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { CalculatorForm } from '$lib/types';
+	import Button from '../Button.svelte';
 	import FieldSet from '../FieldSet.svelte';
 	import Input from '../Input.svelte';
 
@@ -73,14 +74,16 @@
 							bind:value={bundle.round}
 						/>
 					</td>
-					<td class="px-2 py-1.5">
-						<button class="text-xs" onclick={() => removeBundle(index)}>╳</button>
+					<td class="px-2 py-1.5 text-xs">
+						<Button title="Delete bundle '{bundle.name}'" onclick={() => removeBundle(index)}>
+							<span aria-hidden="true">╳</span>
+						</Button>
 					</td>
 				</tr>
 			{/each}
 			<tr>
-				<td colspan="5" class="p-3">
-					<button class="text-blue-700" onclick={addBundle}>+ Add Bundle</button>
+				<td colspan="5" class="p-3 text-center">
+					<Button variant="primary" onclick={addBundle}>+ Add Bundle</Button>
 				</td>
 			</tr>
 		</tbody>
