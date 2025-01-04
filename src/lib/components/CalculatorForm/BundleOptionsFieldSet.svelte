@@ -50,7 +50,7 @@
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Buy"
-							class=" w-14"
+							class="w-14"
 							id="bundle-{bundle.key}-buy"
 							min="0"
 							step="1"
@@ -61,7 +61,7 @@
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Free"
-							class=" w-14"
+							class="w-14"
 							id="bundle-{bundle.key}-free"
 							min="0"
 							step="1"
@@ -72,7 +72,7 @@
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Round down to nearest"
-							class=" w-20"
+							class="w-20"
 							id="bundle-{bundle.key}-round"
 							min="0"
 							step="0.1"
@@ -80,9 +80,9 @@
 							bind:value={bundle.round}
 						/>
 					</td>
-					<td class="px-2 py-1.5 text-xs">
+					<td class="px-2 py-1.5">
 						<Button title="Delete bundle '{bundle.name}'" onclick={() => removeBundle(index)}>
-							<span aria-hidden="true">╳</span>
+							<span class="text-xs" aria-hidden="true">╳</span>
 						</Button>
 					</td>
 				</tr>

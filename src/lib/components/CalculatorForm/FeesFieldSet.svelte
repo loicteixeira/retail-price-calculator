@@ -63,7 +63,9 @@
 						</select>
 					</td>
 					<td class="px-2 py-1.5">
-						<Button onclick={() => removeFee(index)}>╳</Button>
+						<Button onclick={() => removeFee(index)}>
+							<span class="text-xs" aria-hidden="true">╳</span>
+						</Button>
 					</td>
 				</tr>
 			{/each}
