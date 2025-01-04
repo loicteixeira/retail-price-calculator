@@ -1,20 +1,22 @@
 export type Bundle = {
-	name: string;
 	buy: number;
 	free: number;
+	key: string;
+	name: string;
 	round: number | null;
 };
 
 export type Fee = {
-	name: string;
 	amount: number;
+	key: string;
+	name: string;
 	type: 'flat' | 'percent';
 };
 
 export type CalculatorForm = {
-	unitCost: number | null;
-	orderCount: number | null;
-	currencySymbol: string;
 	bundles: Bundle[];
+	currencySymbol: string;
 	fees: Fee[];
+	orderCount: number | null;
+	unitCost: number | null;
 };

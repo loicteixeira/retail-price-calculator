@@ -1,19 +1,74 @@
 import type { Bundle, Fee } from './types';
 
 const BUNDLES: Bundle[] = [
-	{ name: '2+1', buy: 2, free: 1, round: null },
-	{ name: '3+1', buy: 3, free: 1, round: null },
-	{ name: '4+1', buy: 4, free: 1, round: null },
-	{ name: '2 discounted', buy: 2, free: 0, round: 5 },
-	{ name: '3 discounted', buy: 2, free: 0, round: 5 }
+	{
+		buy: 2,
+		free: 1,
+		key: crypto.randomUUID(),
+		name: '2+1',
+		round: null
+	},
+	{
+		buy: 3,
+		free: 1,
+		key: crypto.randomUUID(),
+		name: '3+1',
+		round: null
+	},
+	{
+		buy: 4,
+		free: 1,
+		key: crypto.randomUUID(),
+		name: '4+1',
+		round: null
+	},
+	{
+		buy: 2,
+		free: 0,
+		key: crypto.randomUUID(),
+		name: '2 discounted',
+		round: 5
+	},
+	{
+		buy: 2,
+		free: 0,
+		key: crypto.randomUUID(),
+		name: '3 discounted',
+		round: 5
+	}
 ];
 
 const FEES: Fee[] = [
-	{ name: 'Taxes', amount: 13.7, type: 'percent' },
-	{ name: 'Listing', amount: 0.1, type: 'flat' },
-	{ name: 'Transaction Flat', amount: 0.25, type: 'flat' },
-	{ name: 'Transaction Percent', amount: 1.5, type: 'percent' },
-	{ name: 'Shipping', amount: 5, type: 'flat' }
+	{
+		amount: 13.7,
+		key: crypto.randomUUID(),
+		name: 'Taxes',
+		type: 'percent'
+	},
+	{
+		amount: 0.1,
+		key: crypto.randomUUID(),
+		name: 'Listing',
+		type: 'flat'
+	},
+	{
+		amount: 0.25,
+		key: crypto.randomUUID(),
+		name: 'Transaction Flat',
+		type: 'flat'
+	},
+	{
+		amount: 1.5,
+		key: crypto.randomUUID(),
+		name: 'Transaction Percent',
+		type: 'percent'
+	},
+	{
+		amount: 5,
+		key: crypto.randomUUID(),
+		name: 'Shipping',
+		type: 'flat'
+	}
 ];
 
 export { BUNDLES, FEES };

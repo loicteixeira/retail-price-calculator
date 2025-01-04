@@ -18,7 +18,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each fees as fee}
+			{#each fees as fee (fee.key)}
 				<tr>
 					<td class="w-full px-2 py-1.5">
 						<Input aria-label="Name" class="w-full" id="" type="text" bind:value={fee.name} />

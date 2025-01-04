@@ -21,7 +21,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each bundles as bundle}
+			{#each bundles as bundle (bundle.key)}
 				<tr>
 					<td class="w-full px-2 py-1.5">
 						<Input aria-label="Name" class="w-full" id="" type="text" bind:value={bundle.name} />
