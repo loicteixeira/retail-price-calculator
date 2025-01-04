@@ -30,7 +30,7 @@ const BUNDLES: Bundle[] = [
 		round: 5
 	},
 	{
-		buy: 2,
+		buy: 3,
 		free: 0,
 		key: crypto.randomUUID(),
 		name: '3 discounted',
@@ -71,4 +71,16 @@ const FEES: Fee[] = [
 	}
 ];
 
-export { BUNDLES, FEES };
+const CURRENCY_SYMBOL: string = '€';
+const ORDER_COUNT: number = 100;
+const UNIT_COST: number = 12;
+
+const DEMO_DATA = {
+	unitCost: UNIT_COST,
+	orderCount: ORDER_COUNT,
+	currencySymbol: CURRENCY_SYMBOL,
+	bundles: BUNDLES,
+	fees: FEES
+};
+
+export { BUNDLES, CURRENCY_SYMBOL, DEMO_DATA, FEES, ORDER_COUNT, UNIT_COST };
