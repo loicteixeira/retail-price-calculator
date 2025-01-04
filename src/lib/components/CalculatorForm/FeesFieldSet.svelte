@@ -35,14 +35,26 @@
 			{#each fees as fee, index (fee.key)}
 				<tr>
 					<td class="w-full px-2 py-1.5">
-						<Input aria-label="Name" class="w-full" id="" type="text" bind:value={fee.name} />
+						<Input
+							aria-label="Name"
+							class="w-full"
+							id="fee-{fee.key}-name"
+							type="text"
+							bind:value={fee.name}
+						/>
 					</td>
 					<td class="px-2 py-1.5">
-						<Input aria-label="Amount" class="w-20" id="" type="number" bind:value={fee.amount} />
+						<Input
+							aria-label="Amount"
+							class="w-20"
+							id="fee-{fee.key}-amount"
+							type="number"
+							bind:value={fee.amount}
+						/>
 					</td>
 					<td class="px-2 py-1.5">
 						<select
-							id=""
+							id="fee-{fee.key}-type"
 							aria-label="type"
 							class="w-18 mt-1 block rounded border-gray-300 focus:border-teal-600 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
 						>

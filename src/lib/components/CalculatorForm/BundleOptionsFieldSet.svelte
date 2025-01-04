@@ -39,13 +39,19 @@
 			{#each bundles as bundle, index (bundle.key)}
 				<tr>
 					<td class="w-full px-2 py-1.5">
-						<Input aria-label="Name" class="w-full" id="" type="text" bind:value={bundle.name} />
+						<Input
+							aria-label="Name"
+							class="w-full"
+							id="bundle-{bundle.key}-name"
+							type="text"
+							bind:value={bundle.name}
+						/>
 					</td>
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Buy"
 							class=" w-14"
-							id=""
+							id="bundle-{bundle.key}-buy"
 							min="0"
 							step="1"
 							type="number"
@@ -56,7 +62,7 @@
 						<Input
 							aria-label="Free"
 							class=" w-14"
-							id=""
+							id="bundle-{bundle.key}-free"
 							min="0"
 							step="1"
 							type="number"
@@ -67,7 +73,7 @@
 						<Input
 							aria-label="Round down to nearest"
 							class=" w-20"
-							id=""
+							id="bundle-{bundle.key}-round"
 							min="0"
 							step="0.1"
 							type="number"
