@@ -35,6 +35,13 @@ const BUNDLES: Bundle[] = [
 		key: crypto.randomUUID(),
 		name: '3 discounted',
 		round: 5
+	},
+	{
+		buy: 4,
+		free: 0,
+		key: crypto.randomUUID(),
+		name: '4 discounted',
+		round: 10
 	}
 ];
 
@@ -73,7 +80,7 @@ const FEES: Fee[] = [
 
 const CURRENCY_SYMBOL: string = '€';
 const ORDER_COUNT: number = 100;
-const UNIT_COST: number = 12;
+const UNIT_COST: number = 12.34;
 
 const DEMO_DATA = {
 	unitCost: UNIT_COST,

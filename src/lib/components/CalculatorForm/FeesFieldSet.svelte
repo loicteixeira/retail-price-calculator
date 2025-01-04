@@ -24,10 +24,10 @@
 <FieldSet class="grow" title="Fees">
 	<table class="mr-auto table-fixed">
 		<thead>
-			<tr class="h-[3.2rem] text-left align-text-top uppercase text-gray-700">
-				<th class="p-2">Name</th>
-				<th class="p-2">Amount</th>
-				<th class="p-2">Type</th>
+			<tr class="h-[2.3rem] text-left align-text-top uppercase text-gray-700">
+				<th class="px-2">Name</th>
+				<th class="px-2">Amount</th>
+				<th class="px-2">Type</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>

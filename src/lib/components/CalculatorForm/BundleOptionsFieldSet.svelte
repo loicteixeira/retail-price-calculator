@@ -26,10 +26,10 @@
 	<table class="mr-auto table-fixed">
 		<thead>
 			<tr class="text-left align-text-top uppercase text-gray-700">
-				<th class="p-2">Name</th>
-				<th class="p-2">Buy</th>
-				<th class="p-2">Free</th>
-				<th colspan="2" class="p-2 leading-none">
+				<th class="px-2">Name</th>
+				<th class="px-2">Buy</th>
+				<th class="px-2">Free</th>
+				<th colspan="2" class="px-2 leading-none">
 					Rounding<br />
 					<span class="text-[.4em]">down to nearest</span>
 				</th>
