@@ -10,18 +10,16 @@
 	let form = $state<CalculatorFormType>(startingData);
 
 	function calculateFees(value: number, fees: Fee[]) {
-		return fees.reduce<number>((acc, fee) => {
-			let feeAmount = 0;
+		const details = fees.map((fee) => {
 			switch (fee.type) {
 				case 'flat':
-					feeAmount = fee.amount;
-					break;
+					return fee.amount;
 				case 'percent':
-					feeAmount = (value * fee.amount) / 100;
-					break;
+					return (value * fee.amount) / 100;
 			}
-			return acc + feeAmount;
-		}, 0);
+		});
+		const total = details.reduce((a, b) => a + b, 0);
+		return { details, total };
 	}
 
 	let results = $derived.by(() => {
@@ -29,7 +27,9 @@
 		const baseFees = calculateFees(baseListingPrice, form.fees);
 		const baseResult = { name: 'Base', listingPrice: baseListingPrice, fees: baseFees };
 
-		return form.bundles.reduce<{ name: string; listingPrice: number; fees: number }[]>(
+		return form.bundles.reduce<
+			{ name: string; listingPrice: number; fees: { details: number[]; total: number } }[]
+		>(
 			(acc, value) => {
 				let listingPrice = baseListingPrice * value.buy;
 				if (value.round) {
@@ -71,23 +71,37 @@
 	<table class="mr-auto table-fixed">
 		<thead>
 			<tr class="text-left align-text-top uppercase text-gray-700">
-				<th class="px-2">Name</th>
-				<th class="px-2">Listing Price</th>
-				<th class="px-2">Fees</th>
+				<th class="px-2" rowspan="2">Name</th>
+				<th class="px-2" rowspan="2">Listing Price</th>
+				<th class="px-2 text-center" colspan={form.fees.length + 1}>Fees</th>
+			</tr>
+			<tr class="text-left align-text-top uppercase text-gray-700">
+				{#each form.fees as { name, key } (key)}
+					<th class="px-2">{name}</th>
+				{/each}
+				<th class="px-2">Total</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each results as result}
+				<!-- TODO: Proper currency formatting -->
 				<tr>
 					<td class="px-2 py-1.5">{result.name}</td>
 					<td class="px-2 py-1.5 text-right">
-						<!-- TODO: Proper currency formatting -->
 						{form.currencySymbol}{result.listingPrice.toFixed(2)}
 					</td>
+					{#each result.fees.details as fee}
+						<td class="px-2 py-1.5 text-right">
+							{form.currencySymbol}{fee.toFixed(2)}
+						</td>
+					{/each}
 					<td class="px-2 py-1.5 text-right">
-						<!-- TODO: Proper currency formatting -->
-						{form.currencySymbol}{result.fees.toFixed(2)}
+						{form.currencySymbol}{result.fees.total.toFixed(2)}
 					</td>
+					<!-- TODO: Item Cost -->
+					<!-- TODO: Net -->
+					<!-- TODO: Margin -->
+					<!-- TODO: Break even quantity -->
 				</tr>
 			{/each}
 		</tbody>
