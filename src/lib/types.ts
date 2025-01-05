@@ -13,7 +13,7 @@ export type Fee = {
 	type: 'flat' | 'percent';
 };
 
-export type CalculatorForm = {
+export type FormState = {
 	bundles: Bundle[];
 	currencySymbol: string;
 	fees: Fee[];

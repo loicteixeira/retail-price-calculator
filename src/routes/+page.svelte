@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
-	import * as CalculatorForm from '$lib/components/CalculatorForm';
+	import * as Form from '$lib/components/Form';
 	import { CURRENCY_SYMBOL, DEMO_DATA } from '$lib/demo';
-	import type { CalculatorForm as CalculatorFormType, Fee } from '$lib/types';
+	import type { Fee, FormState } from '$lib/types';
 
 	const startingData = dev
 		? structuredClone(DEMO_DATA)
 		: { unitCost: null, orderCount: null, currencySymbol: CURRENCY_SYMBOL, bundles: [], fees: [] };
-	let form = $state<CalculatorFormType>(startingData);
+	let form = $state<FormState>(startingData);
 
 	function calculateFees(value: number, fees: Fee[]) {
 		const details = fees.map((fee) => {
@@ -25,7 +25,7 @@
 	let results = $derived.by(() => {
 		const baseListingPrice = (form.unitCost || 0) * 3;
 		const baseFees = calculateFees(baseListingPrice, form.fees);
-		const baseResult = { name: 'Base', listingPrice: baseListingPrice, fees: baseFees };
+		const baseResult = { name: 'Single', listingPrice: baseListingPrice, fees: baseFees };
 
 		return form.bundles.reduce<
 			{ name: string; listingPrice: number; fees: { details: number[]; total: number } }[]
@@ -49,17 +49,17 @@
 <div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
 	<form class="flex flex-row flex-wrap gap-6" novalidate>
 		<div class="flex grow flex-col gap-6">
-			<CalculatorForm.ProductInfoFieldSet
+			<Form.ProductInfoFieldSet
 				currencySymbol={form.currencySymbol}
 				bind:orderCount={form.orderCount}
 				bind:unitCost={form.unitCost}
 			/>
 
-			<CalculatorForm.SettingsFieldSet bind:currencySymbol={form.currencySymbol} />
+			<Form.SettingsFieldSet bind:currencySymbol={form.currencySymbol} />
 		</div>
 
-		<CalculatorForm.BundleOptionsFieldSet bind:bundles={form.bundles} />
-		<CalculatorForm.FeesFieldSet currencySymbol={form.currencySymbol} bind:fees={form.fees} />
+		<Form.BundleOptionsFieldSet bind:bundles={form.bundles} />
+		<Form.FeesFieldSet currencySymbol={form.currencySymbol} bind:fees={form.fees} />
 	</form>
 
 	<span class="my-8 flex items-center">

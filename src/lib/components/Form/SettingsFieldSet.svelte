@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { CalculatorForm } from '$lib/types';
+	import type { FormState } from '$lib/types';
 	import FieldSet from '../FieldSet.svelte';
 	import Input from '../Input.svelte';
 
-	type Props = Pick<CalculatorForm, 'currencySymbol'>;
+	type Props = Pick<FormState, 'currencySymbol'>;
 	let { currencySymbol = $bindable() }: Props = $props();
 </script>
 
