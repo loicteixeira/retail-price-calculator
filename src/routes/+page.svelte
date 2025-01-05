@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
 	import * as Form from '$lib/components/Form';
+	import { computeResults } from '$lib/compute';
 	import { CURRENCY_SYMBOL, DEMO_DATA } from '$lib/demo';
-	import type { Fee, FormState } from '$lib/types';
+	import type { FormState } from '$lib/types';
 
 	const startingData = dev
 		? structuredClone(DEMO_DATA)
@@ -16,41 +17,26 @@
 			};
 	let form = $state<FormState>(startingData);
 
-	function calculateFees(value: number, fees: Fee[]) {
-		const details = fees.map((fee) => {
-			switch (fee.type) {
-				case 'flat':
-					return fee.amount;
-				case 'percent':
-					return (value * fee.amount) / 100;
-			}
+	let { columns, groups } = $derived.by(() => {
+		return computeResults({
+			fees: form.fees,
+			salesOptions: [
+				{
+					buyCount: 1,
+					freeCount: 0,
+					name: 'Single',
+					rounding: null
+				},
+				...form.bundles.map((bundle) => ({
+					buyCount: bundle.buy,
+					freeCount: bundle.free,
+					name: bundle.name,
+					rounding: bundle.round
+				}))
+			],
+			productInformation: { orderCount: form.orderCount || 0, unitCost: form.unitCost || 0 },
+			scenarios: form.scenarios
 		});
-		const total = details.reduce((a, b) => a + b, 0);
-		return { details, total };
-	}
-
-	let results = $derived.by(() => {
-		const firstValidScenario = form.scenarios && form.scenarios.find((v) => !isNaN(v));
-		const baseListingPrice = firstValidScenario ? firstValidScenario : (form.unitCost || 0) * 3;
-		const baseFees = calculateFees(baseListingPrice, form.fees);
-		const baseResult = { name: 'Single', listingPrice: baseListingPrice, fees: baseFees };
-
-		return form.bundles.reduce<
-			{ name: string; listingPrice: number; fees: { details: number[]; total: number } }[]
-		>(
-			(acc, value) => {
-				let listingPrice = baseListingPrice * value.buy;
-				if (value.round) {
-					listingPrice = Math.floor(listingPrice / value.round) * value.round;
-				}
-
-				const fees = calculateFees(listingPrice, form.fees);
-
-				acc.push({ name: value.name, listingPrice, fees });
-				return acc;
-			},
-			[baseResult]
-		);
 	});
 </script>
 
@@ -88,38 +74,41 @@
 	<table class="mr-auto table-fixed">
 		<thead>
 			<tr class="text-left align-text-top uppercase text-gray-700">
-				<th class="px-2" rowspan="2">Name</th>
-				<th class="px-2" rowspan="2">Listing Price</th>
-				<th class="px-2 text-center" colspan={form.fees.length + 1}>Fees</th>
+				{#each columns as column}
+					<th
+						class="px-2 {'children' in column && 'text-center'}"
+						rowspan={'children' in column ? 1 : 2}
+						colspan={'children' in column ? column.children.length : 1}
+					>
+						{column.label}
+					</th>
+				{/each}
 			</tr>
 			<tr class="text-left align-text-top uppercase text-gray-700">
-				{#each form.fees as { name, key } (key)}
-					<th class="px-2">{name}</th>
+				{#each columns as column}
+					{#if 'children' in column}
+						{#each column.children as child}
+							<th class="px-2">{child}</th>
+						{/each}
+					{/if}
 				{/each}
-				<th class="px-2">Total</th>
 			</tr>
 		</thead>
 		<tbody>
-			{#each results as result}
-				<!-- TODO: Proper currency formatting -->
-				<tr>
-					<td class="px-2 py-1.5">{result.name}</td>
-					<td class="px-2 py-1.5 text-right">
-						{form.currencySymbol}{result.listingPrice.toFixed(2)}
-					</td>
-					{#each result.fees.details as fee}
-						<td class="px-2 py-1.5 text-right">
-							{form.currencySymbol}{fee.toFixed(2)}
-						</td>
+			{#each groups as group, index}
+				<tr class={index !== 0 ? 'border-t-2' : ''}>
+					<td class="px-2 py-1.5" rowspan={group.rows.length}>{group.label}</td>
+					{#each group.rows[0] as cell}
+						<td class="px-2 py-1.5">{cell}</td>
 					{/each}
-					<td class="px-2 py-1.5 text-right">
-						{form.currencySymbol}{result.fees.total.toFixed(2)}
-					</td>
-					<!-- TODO: Item Cost -->
-					<!-- TODO: Net -->
-					<!-- TODO: Margin -->
-					<!-- TODO: Break even quantity -->
 				</tr>
+				{#each group.rows.slice(1) as cells}
+					<tr>
+						{#each cells as cell}
+							<td class="px-2 py-1.5">{cell}</td>
+						{/each}
+					</tr>
+				{/each}
 			{/each}
 		</tbody>
 	</table>
