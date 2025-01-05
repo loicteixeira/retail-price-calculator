@@ -10,6 +10,6 @@
 <FieldSet class="flex flex-col gap-4" title="Settings">
 	<label class="block">
 		Currency Symbol
-		<Input class="w-full" id="currency-symbol" type="text" bind:value={currencySymbol} />
+		<Input class="w-32" id="currency-symbol" type="text" bind:value={currencySymbol} />
 	</label>
 </FieldSet>

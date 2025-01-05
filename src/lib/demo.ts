@@ -1,4 +1,4 @@
-import type { Bundle, Fee } from './types';
+import type { Bundle, Fee, Scenario } from './types';
 
 const BUNDLES: Bundle[] = [
 	{
@@ -78,16 +78,19 @@ const FEES: Fee[] = [
 	}
 ];
 
+const SCENARIOS: number[] = [30, 40];
+
 const CURRENCY_SYMBOL: string = '€';
 const ORDER_COUNT: number = 100;
 const UNIT_COST: number = 12.34;
 
 const DEMO_DATA = {
-	unitCost: UNIT_COST,
-	orderCount: ORDER_COUNT,
-	currencySymbol: CURRENCY_SYMBOL,
 	bundles: BUNDLES,
-	fees: FEES
+	currencySymbol: CURRENCY_SYMBOL,
+	fees: FEES,
+	orderCount: ORDER_COUNT,
+	scenarios: SCENARIOS,
+	unitCost: UNIT_COST
 };
 
-export { BUNDLES, CURRENCY_SYMBOL, DEMO_DATA, FEES, ORDER_COUNT, UNIT_COST };
+export { BUNDLES, CURRENCY_SYMBOL, DEMO_DATA, FEES, ORDER_COUNT, SCENARIOS, UNIT_COST };

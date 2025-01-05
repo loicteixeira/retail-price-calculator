@@ -18,5 +18,6 @@ export type FormState = {
 	currencySymbol: string;
 	fees: Fee[];
 	orderCount: number | null;
+	scenarios: number[];
 	unitCost: number | null;
 };

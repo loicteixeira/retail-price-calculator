@@ -6,7 +6,14 @@
 
 	const startingData = dev
 		? structuredClone(DEMO_DATA)
-		: { unitCost: null, orderCount: null, currencySymbol: CURRENCY_SYMBOL, bundles: [], fees: [] };
+		: {
+				bundles: [],
+				currencySymbol: CURRENCY_SYMBOL,
+				fees: [],
+				orderCount: null,
+				scenarios: [],
+				unitCost: null
+			};
 	let form = $state<FormState>(startingData);
 
 	function calculateFees(value: number, fees: Fee[]) {
@@ -23,7 +30,8 @@
 	}
 
 	let results = $derived.by(() => {
-		const baseListingPrice = (form.unitCost || 0) * 3;
+		const firstValidScenario = form.scenarios && form.scenarios.find((v) => !isNaN(v));
+		const baseListingPrice = firstValidScenario ? firstValidScenario : (form.unitCost || 0) * 3;
 		const baseFees = calculateFees(baseListingPrice, form.fees);
 		const baseResult = { name: 'Single', listingPrice: baseListingPrice, fees: baseFees };
 
@@ -47,19 +55,28 @@
 </script>
 
 <div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-	<form class="flex flex-row flex-wrap gap-6" novalidate>
-		<div class="flex grow flex-col gap-6">
+	<form class="flex flex-col gap-6" novalidate>
+		<div class="flex flex-row flex-wrap gap-6">
 			<Form.ProductInfoFieldSet
 				currencySymbol={form.currencySymbol}
 				bind:orderCount={form.orderCount}
 				bind:unitCost={form.unitCost}
 			/>
 
+			<Form.ScenariosFieldSet
+				currencySymbol={form.currencySymbol}
+				bind:scenarios={form.scenarios}
+			/>
+
+			<span class="grow">&nbsp</span>
+
 			<Form.SettingsFieldSet bind:currencySymbol={form.currencySymbol} />
 		</div>
 
-		<Form.BundleOptionsFieldSet bind:bundles={form.bundles} />
-		<Form.FeesFieldSet currencySymbol={form.currencySymbol} bind:fees={form.fees} />
+		<div class="flex flex-row flex-wrap gap-6">
+			<Form.BundleOptionsFieldSet bind:bundles={form.bundles} />
+			<Form.FeesFieldSet currencySymbol={form.currencySymbol} bind:fees={form.fees} />
+		</div>
 	</form>
 
 	<span class="my-8 flex items-center">
