@@ -9,11 +9,11 @@
 
 	function addBundle() {
 		bundles.push({
-			buy: 1,
-			free: 0,
+			buyCount: 1,
+			freeCount: 0,
 			key: crypto.randomUUID(),
 			name: '',
-			round: null
+			rounding: null
 		});
 	}
 
@@ -51,33 +51,33 @@
 						<Input
 							aria-label="Buy"
 							class="w-14"
-							id="bundle-{bundle.key}-buy"
+							id="bundle-{bundle.key}-buyCount"
 							min="0"
 							step="1"
 							type="number"
-							bind:value={bundle.buy}
+							bind:value={bundle.buyCount}
 						/>
 					</td>
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Free"
 							class="w-14"
-							id="bundle-{bundle.key}-free"
+							id="bundle-{bundle.key}-freeCount"
 							min="0"
 							step="1"
 							type="number"
-							bind:value={bundle.free}
+							bind:value={bundle.freeCount}
 						/>
 					</td>
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Round down to nearest"
 							class="w-20"
-							id="bundle-{bundle.key}-round"
+							id="bundle-{bundle.key}-rounding"
 							min="0"
 							step="0.1"
 							type="number"
-							bind:value={bundle.round}
+							bind:value={bundle.rounding}
 						/>
 					</td>
 					<td class="px-2 py-1.5">

@@ -2,46 +2,46 @@ import type { Bundle, Fee, Scenario } from './types';
 
 const BUNDLES: Bundle[] = [
 	{
-		buy: 2,
-		free: 1,
+		buyCount: 2,
+		freeCount: 1,
 		key: crypto.randomUUID(),
 		name: '2+1',
-		round: null
+		rounding: null
 	},
 	{
-		buy: 3,
-		free: 1,
+		buyCount: 3,
+		freeCount: 1,
 		key: crypto.randomUUID(),
 		name: '3+1',
-		round: null
+		rounding: null
 	},
 	{
-		buy: 4,
-		free: 1,
+		buyCount: 4,
+		freeCount: 1,
 		key: crypto.randomUUID(),
 		name: '4+1',
-		round: null
+		rounding: null
 	},
 	{
-		buy: 2,
-		free: 0,
+		buyCount: 2,
+		freeCount: 0,
 		key: crypto.randomUUID(),
 		name: '2 discounted',
-		round: 5
+		rounding: 5
 	},
 	{
-		buy: 3,
-		free: 0,
+		buyCount: 3,
+		freeCount: 0,
 		key: crypto.randomUUID(),
 		name: '3 discounted',
-		round: 5
+		rounding: 5
 	},
 	{
-		buy: 4,
-		free: 0,
+		buyCount: 4,
+		freeCount: 0,
 		key: crypto.randomUUID(),
 		name: '4 discounted',
-		round: 10
+		rounding: 10
 	}
 ];
 

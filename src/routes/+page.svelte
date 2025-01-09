@@ -27,12 +27,7 @@
 					name: 'Single',
 					rounding: null
 				},
-				...form.bundles.map((bundle) => ({
-					buyCount: bundle.buy,
-					freeCount: bundle.free,
-					name: bundle.name,
-					rounding: bundle.round
-				}))
+				...form.bundles
 			],
 			productInformation: { orderCount: form.orderCount || 0, unitCost: form.unitCost || 0 },
 			scenarios: form.scenarios

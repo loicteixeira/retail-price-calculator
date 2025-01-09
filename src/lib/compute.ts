@@ -1,21 +1,9 @@
-import type { Scenario } from './types';
+import type { Bundle, Fee, Scenario } from './types';
 
 type ComputeResultsOptions = {
-	fees: {
-		amount: number;
-		name: string;
-		type: 'flat' | 'percent';
-	}[];
-	salesOptions: {
-		buyCount: number;
-		freeCount: number;
-		name: string;
-		rounding: number | null;
-	}[];
-	productInformation: {
-		orderCount: number;
-		unitCost: number;
-	};
+	fees: Pick<Fee, 'amount' | 'name' | 'type'>[];
+	productInformation: { orderCount: number; unitCost: number };
+	salesOptions: Pick<Bundle, 'buyCount' | 'freeCount' | 'name' | 'rounding'>[];
 	scenarios: Pick<Scenario, 'name' | 'baseListingPrice'>[];
 };
 

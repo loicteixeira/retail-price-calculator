@@ -1,9 +1,9 @@
 export type Bundle = {
-	buy: number;
-	free: number;
+	buyCount: number;
+	freeCount: number;
 	key: string;
 	name: string;
-	round: number | null;
+	rounding: number | null;
 };
 
 export type Fee = {
