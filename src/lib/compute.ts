@@ -1,3 +1,5 @@
+import type { Scenario } from './types';
+
 type ComputeResultsOptions = {
 	fees: {
 		amount: number;
@@ -14,7 +16,7 @@ type ComputeResultsOptions = {
 		orderCount: number;
 		unitCost: number;
 	};
-	scenarios: number[];
+	scenarios: Pick<Scenario, 'name' | 'baseListingPrice'>[];
 };
 
 type ComputeResultsOutput = {
@@ -40,7 +42,7 @@ export function computeResults({
 	const groups = scenarios.map((scenario) => {
 		const rows = salesOptions.reduce<ComputeResultsOutput['groups'][0]['rows']>(
 			(acc, { buyCount, name, rounding }) => {
-				let listingPrice = scenario * buyCount;
+				let listingPrice = scenario.baseListingPrice * buyCount;
 				if (rounding) {
 					listingPrice = Math.floor(listingPrice / rounding) * rounding;
 				}
@@ -58,7 +60,7 @@ export function computeResults({
 			},
 			[]
 		);
-		return { label: scenario.toString(), rows };
+		return { label: scenario.name, rows };
 	});
 
 	return { columns, groups };

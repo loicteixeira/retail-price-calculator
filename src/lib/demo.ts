@@ -78,7 +78,10 @@ const FEES: Fee[] = [
 	}
 ];
 
-const SCENARIOS: number[] = [30, 40];
+const SCENARIOS: Scenario[] = [
+	{ baseListingPrice: 30, name: 'wholesale', key: crypto.randomUUID() },
+	{ baseListingPrice: 60, name: 'retail', key: crypto.randomUUID() }
+];
 
 const CURRENCY_SYMBOL: string = '€';
 const ORDER_COUNT: number = 100;

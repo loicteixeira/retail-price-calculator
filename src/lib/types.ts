@@ -13,11 +13,17 @@ export type Fee = {
 	type: 'flat' | 'percent';
 };
 
+export type Scenario = {
+	baseListingPrice: number;
+	name: string;
+	key: string;
+};
+
 export type FormState = {
 	bundles: Bundle[];
 	currencySymbol: string;
 	fees: Fee[];
 	orderCount: number | null;
-	scenarios: number[];
+	scenarios: Scenario[];
 	unitCost: number | null;
 };

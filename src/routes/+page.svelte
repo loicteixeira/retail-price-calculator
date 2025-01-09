@@ -49,17 +49,16 @@
 				bind:unitCost={form.unitCost}
 			/>
 
-			<Form.ScenariosFieldSet
-				currencySymbol={form.currencySymbol}
-				bind:scenarios={form.scenarios}
-			/>
-
 			<span class="grow">&nbsp</span>
 
 			<Form.SettingsFieldSet bind:currencySymbol={form.currencySymbol} />
 		</div>
 
 		<div class="flex flex-row flex-wrap gap-6">
+			<Form.ScenariosFieldSet
+				currencySymbol={form.currencySymbol}
+				bind:scenarios={form.scenarios}
+			/>
 			<Form.BundleOptionsFieldSet bind:bundles={form.bundles} />
 			<Form.FeesFieldSet currencySymbol={form.currencySymbol} bind:fees={form.fees} />
 		</div>
