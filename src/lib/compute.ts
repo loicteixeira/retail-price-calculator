@@ -17,6 +17,7 @@ type ComputeResultsOutput = {
 
 export function computeResults({
 	fees,
+	productInformation,
 	salesOptions,
 	scenarios
 }: ComputeResultsOptions): ComputeResultsOutput {
@@ -24,12 +25,14 @@ export function computeResults({
 		{ label: 'Scenario' },
 		{ label: 'Name' },
 		{ label: 'Listing Price' },
-		{ label: 'Fees', children: [...fees.map((fee) => fee.name), 'Total'] }
+		{ label: 'Fees', children: [...fees.map((fee) => fee.name), 'Total'] },
+		{ label: 'Items Cost' },
+		{ label: 'Net' }
 	];
 
 	const groups = scenarios.map((scenario) => {
 		const rows = salesOptions.reduce<ComputeResultsOutput['groups'][0]['rows']>(
-			(acc, { buyCount, name, rounding }) => {
+			(acc, { buyCount, freeCount, name, rounding }) => {
 				let listingPrice = scenario.baseListingPrice * buyCount;
 				if (rounding) {
 					listingPrice = Math.floor(listingPrice / rounding) * rounding;
@@ -37,12 +40,18 @@ export function computeResults({
 
 				const calculatedFees = computeFees(listingPrice, fees);
 
+				const itemsCost = productInformation.unitCost * (buyCount + freeCount);
+
+				const net = listingPrice - itemsCost - calculatedFees.total;
+
 				acc.push([
 					name,
 					// TODO: Proper currency formatting
 					listingPrice.toFixed(2),
 					...calculatedFees.details.map((v) => v.toFixed(2)),
-					calculatedFees.total.toFixed(2)
+					calculatedFees.total.toFixed(2),
+					itemsCost.toFixed(2),
+					net.toFixed(2)
 				]);
 				return acc;
 			},
