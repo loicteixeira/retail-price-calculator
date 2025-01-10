@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { FormState } from '$lib/types';
-	import Button from '../Button.svelte';
-	import FieldSet from '../FieldSet.svelte';
-	import Input from '../Input.svelte';
+	import Button from '../Atoms/Button.svelte';
+	import FieldSet from '../Atoms/FieldSet.svelte';
+	import Input from '../Atoms/Input.svelte';
 
 	type Props = Pick<FormState, 'bundles'>;
 	let { bundles = $bindable() }: Props = $props();

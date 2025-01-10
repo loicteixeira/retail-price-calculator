@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { CURRENCY_CODES } from '$lib/currencies';
 	import type { FormState } from '$lib/types';
-	import FieldSet from '../FieldSet.svelte';
+	import FieldSet from '../Atoms/FieldSet.svelte';
 
 	type Props = Pick<FormState, 'currencyCode'>;
 	let { currencyCode = $bindable() }: Props = $props();
