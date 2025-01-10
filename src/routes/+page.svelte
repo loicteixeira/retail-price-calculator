@@ -2,19 +2,16 @@
 	import * as Form from '$lib/components/Form';
 	import Results from '$lib/components/Results.svelte';
 	import { computeResults } from '$lib/compute';
-	import data from '$lib/data';
 	import { getCurrencySymbol } from '$lib/i18n';
-	import type { FormState } from '$lib/types';
 
-	const startingData = structuredClone(data.demo);
-	let form = $state<FormState>(startingData);
+	const form = Form.useState();
 
-	let currencySymbol = $derived(getCurrencySymbol(form.currencyCode));
+	let currencySymbol = $derived(getCurrencySymbol(form.state.currencyCode));
 
 	let results = $derived.by(() => {
 		return computeResults({
-			currencyCode: form.currencyCode,
-			fees: form.fees,
+			currencyCode: form.state.currencyCode,
+			fees: form.state.fees,
 			salesOptions: [
 				{
 					buyCount: 1,
@@ -22,20 +19,15 @@
 					name: 'Single',
 					rounding: null
 				},
-				...form.bundles
+				...form.state.bundles
 			],
-			productInformation: { orderCount: form.orderCount || 0, unitCost: form.unitCost || 0 },
-			scenarios: form.scenarios
+			productInformation: {
+				orderCount: form.state.orderCount || 0,
+				unitCost: form.state.unitCost || 0
+			},
+			scenarios: form.state.scenarios
 		});
 	});
-
-	function onClearData() {
-		form = structuredClone(data.empty);
-	}
-
-	function onLoadDemoData() {
-		form = structuredClone(data.demo);
-	}
 </script>
 
 <div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
@@ -43,26 +35,26 @@
 		<div class="flex flex-row flex-wrap justify-between gap-6">
 			<Form.ProductInfoFieldSet
 				{currencySymbol}
-				bind:orderCount={form.orderCount}
-				bind:unitCost={form.unitCost}
+				bind:orderCount={form.state.orderCount}
+				bind:unitCost={form.state.unitCost}
 			/>
 
 			<div class="space-between flex flex-row flex-wrap gap-6">
-				<Form.SettingsFieldSet bind:currencyCode={form.currencyCode} />
-				<Form.ActionsFieldSet {onClearData} {onLoadDemoData} />
+				<Form.SettingsFieldSet bind:currencyCode={form.state.currencyCode} />
+				<Form.ActionsFieldSet onClearData={form.onClearData} onLoadDemoData={form.onLoadDemoData} />
 			</div>
 		</div>
 
 		<div class="grid-warp grid grid-cols-[repeat(auto-fit,_minmax(150px,auto))] gap-6">
 			<Form.ScenariosFieldSet
 				class="col-span-2"
-				currencyCode={form.currencyCode}
+				currencyCode={form.state.currencyCode}
 				{currencySymbol}
-				unitCost={form.unitCost}
-				bind:scenarios={form.scenarios}
+				unitCost={form.state.unitCost}
+				bind:scenarios={form.state.scenarios}
 			/>
-			<Form.BundleOptionsFieldSet class="col-span-3" bind:bundles={form.bundles} />
-			<Form.FeesFieldSet class="col-span-3" {currencySymbol} bind:fees={form.fees} />
+			<Form.BundleOptionsFieldSet class="col-span-3" bind:bundles={form.state.bundles} />
+			<Form.FeesFieldSet class="col-span-3" {currencySymbol} bind:fees={form.state.fees} />
 		</div>
 	</form>
 

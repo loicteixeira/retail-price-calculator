@@ -4,6 +4,7 @@ import ProductInfoFieldSet from './ProductInfoFieldSet.svelte';
 import SettingsFieldSet from './SettingsFieldSet.svelte';
 import ScenariosFieldSet from './ScenariosFieldSet.svelte';
 import ActionsFieldSet from './ActionsFieldSet.svelte';
+import { useState } from './state.svelte';
 
 export {
 	ActionsFieldSet,
@@ -11,5 +12,6 @@ export {
 	FeesFieldSet,
 	ProductInfoFieldSet,
 	ScenariosFieldSet,
-	SettingsFieldSet
+	SettingsFieldSet,
+	useState
 };
