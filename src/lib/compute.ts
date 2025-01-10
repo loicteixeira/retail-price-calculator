@@ -27,7 +27,9 @@ export function computeResults({
 		{ label: 'Listing Price' },
 		{ label: 'Fees', children: [...fees.map((fee) => fee.name), 'Total'] },
 		{ label: 'Items Cost' },
-		{ label: 'Net' }
+		{ label: 'Net' },
+		{ label: 'Margin' },
+		{ label: 'Break Even' }
 	];
 
 	const groups = scenarios.map((scenario) => {
@@ -39,10 +41,12 @@ export function computeResults({
 				}
 
 				const calculatedFees = computeFees(listingPrice, fees);
-
 				const itemsCost = productInformation.unitCost * (buyCount + freeCount);
-
 				const net = listingPrice - itemsCost - calculatedFees.total;
+				const margin = net / listingPrice;
+				const breakEven = Math.ceil(
+					(productInformation.orderCount * productInformation.unitCost) / net
+				);
 
 				acc.push([
 					name,
@@ -51,7 +55,9 @@ export function computeResults({
 					...calculatedFees.details.map((v) => v.toFixed(2)),
 					calculatedFees.total.toFixed(2),
 					itemsCost.toFixed(2),
-					net.toFixed(2)
+					net.toFixed(2),
+					margin.toFixed(2),
+					breakEven.toString()
 				]);
 				return acc;
 			},
