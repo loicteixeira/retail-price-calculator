@@ -1,21 +1,11 @@
 <script lang="ts">
-	import { dev } from '$app/environment';
 	import * as Form from '$lib/components/Form';
 	import { computeResults } from '$lib/compute';
-	import { CURRENCY_CODE, DEMO_DATA } from '$lib/demo';
+	import data from '$lib/data';
 	import { getCurrencySymbol } from '$lib/i18n';
 	import type { FormState } from '$lib/types';
 
-	const startingData = dev
-		? structuredClone(DEMO_DATA)
-		: {
-				bundles: [],
-				currencyCode: CURRENCY_CODE,
-				fees: [],
-				orderCount: null,
-				scenarios: [],
-				unitCost: null
-			};
+	const startingData = structuredClone(data.demo);
 	let form = $state<FormState>(startingData);
 
 	let currencySymbol = $derived(getCurrencySymbol(form.currencyCode));
@@ -37,6 +27,14 @@
 			scenarios: form.scenarios
 		});
 	});
+
+	function onClearData() {
+		form = structuredClone(data.empty);
+	}
+
+	function onLoadDemoData() {
+		form = structuredClone(data.demo);
+	}
 </script>
 
 <div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
@@ -51,6 +49,7 @@
 			<span class="grow">&nbsp</span>
 
 			<Form.SettingsFieldSet bind:currencyCode={form.currencyCode} />
+			<Form.ActionsFieldSet {onClearData} {onLoadDemoData} />
 		</div>
 
 		<div class="flex flex-row flex-wrap gap-6">
