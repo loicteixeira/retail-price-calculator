@@ -1,18 +1,29 @@
 <script lang="ts">
+	import { formatCurrency } from '$lib/i18n';
 	import type { FormState } from '$lib/types';
 	import Button from '../Atoms/Button.svelte';
 	import FieldSet from '../Atoms/FieldSet.svelte';
 	import Input from '../Atoms/Input.svelte';
 
-	type Props = Pick<FormState, 'scenarios'> & { currencySymbol: string };
-	let { currencySymbol, scenarios = $bindable() }: Props = $props();
+	type Props = Pick<FormState, 'currencyCode' | 'unitCost' | 'scenarios'> & {
+		currencySymbol: string;
+	};
+	let { currencyCode, currencySymbol, unitCost = 1, scenarios = $bindable() }: Props = $props();
 
-	function addScenario() {
-		scenarios.push({
-			baseListingPrice: 0,
-			key: crypto.randomUUID(),
-			name: ''
-		});
+	const suggestedWholesale = Math.round((unitCost ?? 0) * 3);
+	const suggestedRetail = Math.round((unitCost ?? 0) * 6);
+
+	function addScenario(name: string = '', baseListingPrice: number = 0) {
+		scenarios.push({ baseListingPrice, key: crypto.randomUUID(), name });
+	}
+
+	function addOrUpdateScenario(name: string = '', baseListingPrice: number = 0) {
+		const existingScenario = scenarios.find((scenario) => scenario.name === name);
+		if (existingScenario) {
+			existingScenario.baseListingPrice = baseListingPrice;
+		} else {
+			addScenario(name, baseListingPrice);
+		}
 	}
 
 	function removeScenario(index: number) {
@@ -60,8 +71,29 @@
 				</tr>
 			{/each}
 			<tr>
-				<td colspan="5" class="p-3 text-center">
-					<Button variant="primary" onclick={addScenario}>+ Add Scenario</Button>
+				<td colspan="3" class="p-3 text-center">
+					<Button variant="primary" onclick={() => addScenario()}>+ Add Scenario</Button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" class="text-center text-sm text-gray-600">
+					<span class="inline-block py-1">Suggested:</span>
+					<br />
+					<Button
+						variant="secondary"
+						onclick={() => addOrUpdateScenario('Wholesale', suggestedWholesale)}
+					>
+						Wholesale: {formatCurrency(suggestedWholesale, currencyCode)}
+						<span class="text-xs">(x3 unit cost)</span>
+					</Button>
+					<br />
+					<Button
+						variant="secondary"
+						onclick={() => addOrUpdateScenario('Retail', suggestedRetail)}
+					>
+						Retail: {formatCurrency(suggestedRetail, currencyCode)}
+						<span class="text-xs">(x6 unit cost)</span>
+					</Button>
 				</td>
 			</tr>
 		</tbody>

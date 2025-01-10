@@ -53,7 +53,12 @@
 		</div>
 
 		<div class="flex flex-row flex-wrap gap-6">
-			<Form.ScenariosFieldSet {currencySymbol} bind:scenarios={form.scenarios} />
+			<Form.ScenariosFieldSet
+				currencyCode={form.currencyCode}
+				{currencySymbol}
+				unitCost={form.unitCost}
+				bind:scenarios={form.scenarios}
+			/>
 			<Form.BundleOptionsFieldSet bind:bundles={form.bundles} />
 			<Form.FeesFieldSet {currencySymbol} bind:fees={form.fees} />
 		</div>
