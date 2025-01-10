@@ -2,14 +2,15 @@
 	import { dev } from '$app/environment';
 	import * as Form from '$lib/components/Form';
 	import { computeResults } from '$lib/compute';
-	import { CURRENCY_SYMBOL, DEMO_DATA } from '$lib/demo';
+	import { CURRENCY_CODE, DEMO_DATA } from '$lib/demo';
+	import { getCurrencySymbol } from '$lib/i18n';
 	import type { FormState } from '$lib/types';
 
 	const startingData = dev
 		? structuredClone(DEMO_DATA)
 		: {
 				bundles: [],
-				currencySymbol: CURRENCY_SYMBOL,
+				currencyCode: CURRENCY_CODE,
 				fees: [],
 				orderCount: null,
 				scenarios: [],
@@ -17,8 +18,11 @@
 			};
 	let form = $state<FormState>(startingData);
 
+	let currencySymbol = $derived(getCurrencySymbol(form.currencyCode));
+
 	let { columns, groups } = $derived.by(() => {
 		return computeResults({
+			currencyCode: form.currencyCode,
 			fees: form.fees,
 			salesOptions: [
 				{
@@ -39,23 +43,20 @@
 	<form class="flex flex-col gap-6" novalidate>
 		<div class="flex flex-row flex-wrap gap-6">
 			<Form.ProductInfoFieldSet
-				currencySymbol={form.currencySymbol}
+				{currencySymbol}
 				bind:orderCount={form.orderCount}
 				bind:unitCost={form.unitCost}
 			/>
 
 			<span class="grow">&nbsp</span>
 
-			<Form.SettingsFieldSet bind:currencySymbol={form.currencySymbol} />
+			<Form.SettingsFieldSet bind:currencyCode={form.currencyCode} />
 		</div>
 
 		<div class="flex flex-row flex-wrap gap-6">
-			<Form.ScenariosFieldSet
-				currencySymbol={form.currencySymbol}
-				bind:scenarios={form.scenarios}
-			/>
+			<Form.ScenariosFieldSet {currencySymbol} bind:scenarios={form.scenarios} />
 			<Form.BundleOptionsFieldSet bind:bundles={form.bundles} />
-			<Form.FeesFieldSet currencySymbol={form.currencySymbol} bind:fees={form.fees} />
+			<Form.FeesFieldSet {currencySymbol} bind:fees={form.fees} />
 		</div>
 	</form>
 

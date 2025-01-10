@@ -1,4 +1,4 @@
-import type { Bundle, Fee, Scenario } from './types';
+import type { Bundle, CurrencyCode, Fee, Scenario } from './types';
 
 const BUNDLES: Bundle[] = [
 	{
@@ -83,17 +83,17 @@ const SCENARIOS: Scenario[] = [
 	{ baseListingPrice: 60, name: 'retail', key: crypto.randomUUID() }
 ];
 
-const CURRENCY_SYMBOL: string = '€';
+const CURRENCY_CODE: CurrencyCode = 'EUR';
 const ORDER_COUNT: number = 100;
 const UNIT_COST: number = 12.34;
 
 const DEMO_DATA = {
 	bundles: BUNDLES,
-	currencySymbol: CURRENCY_SYMBOL,
+	currencyCode: CURRENCY_CODE,
 	fees: FEES,
 	orderCount: ORDER_COUNT,
 	scenarios: SCENARIOS,
 	unitCost: UNIT_COST
 };
 
-export { BUNDLES, CURRENCY_SYMBOL, DEMO_DATA, FEES, ORDER_COUNT, SCENARIOS, UNIT_COST };
+export { BUNDLES, CURRENCY_CODE, DEMO_DATA, FEES, ORDER_COUNT, SCENARIOS, UNIT_COST };

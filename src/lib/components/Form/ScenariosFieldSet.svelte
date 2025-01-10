@@ -4,7 +4,7 @@
 	import FieldSet from '../FieldSet.svelte';
 	import Input from '../Input.svelte';
 
-	type Props = Pick<FormState, 'currencySymbol' | 'scenarios'>;
+	type Props = Pick<FormState, 'scenarios'> & { currencySymbol: string };
 	let { currencySymbol, scenarios = $bindable() }: Props = $props();
 
 	function addScenario() {

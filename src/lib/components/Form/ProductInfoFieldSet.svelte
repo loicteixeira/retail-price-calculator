@@ -3,7 +3,7 @@
 	import FieldSet from '../FieldSet.svelte';
 	import Input from '../Input.svelte';
 
-	type Props = Pick<FormState, 'currencySymbol' | 'orderCount' | 'unitCost'>;
+	type Props = Pick<FormState, 'orderCount' | 'unitCost'> & { currencySymbol: string };
 	let { currencySymbol, orderCount = $bindable(), unitCost = $bindable() }: Props = $props();
 </script>
 

@@ -1,6 +1,8 @@
-import type { Bundle, Fee, Scenario } from './types';
+import { formatCurrency, formatPercent } from './i18n';
+import type { Bundle, CurrencyCode, Fee, Scenario } from './types';
 
 type ComputeResultsOptions = {
+	currencyCode: CurrencyCode;
 	fees: Pick<Fee, 'amount' | 'name' | 'type'>[];
 	productInformation: { orderCount: number; unitCost: number };
 	salesOptions: Pick<Bundle, 'buyCount' | 'freeCount' | 'name' | 'rounding'>[];
@@ -16,6 +18,7 @@ type ComputeResultsOutput = {
 };
 
 export function computeResults({
+	currencyCode,
 	fees,
 	productInformation,
 	salesOptions,
@@ -50,13 +53,12 @@ export function computeResults({
 
 				acc.push([
 					name,
-					// TODO: Proper currency formatting
-					listingPrice.toFixed(2),
-					...calculatedFees.details.map((v) => v.toFixed(2)),
-					calculatedFees.total.toFixed(2),
-					itemsCost.toFixed(2),
-					net.toFixed(2),
-					margin.toFixed(2),
+					formatCurrency(listingPrice, currencyCode),
+					...calculatedFees.details.map((v) => formatCurrency(v, currencyCode)),
+					formatCurrency(calculatedFees.total, currencyCode),
+					formatCurrency(itemsCost, currencyCode),
+					formatCurrency(net, currencyCode),
+					formatPercent(margin),
 					breakEven.toString()
 				]);
 				return acc;

@@ -1,3 +1,5 @@
+import type { CURRENCY_CODES } from './currencies';
+
 export type Bundle = {
 	buyCount: number;
 	freeCount: number;
@@ -5,6 +7,8 @@ export type Bundle = {
 	name: string;
 	rounding: number | null;
 };
+
+export type CurrencyCode = (typeof CURRENCY_CODES)[number];
 
 export type Fee = {
 	amount: number;
@@ -21,7 +25,7 @@ export type Scenario = {
 
 export type FormState = {
 	bundles: Bundle[];
-	currencySymbol: string;
+	currencyCode: CurrencyCode;
 	fees: Fee[];
 	orderCount: number | null;
 	scenarios: Scenario[];
