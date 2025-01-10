@@ -25,10 +25,7 @@
 		<thead>
 			<tr class="text-left align-text-top uppercase text-gray-700">
 				<th class="px-2">Name</th>
-				<th colspan="2" class="px-2 leading-none">
-					Listing Price<br />
-					<span class="text-[.4em]">in {currencySymbol}</span>
-				</th>
+				<th colspan="2" class="px-2 leading-none"> Listing Price </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -46,7 +43,8 @@
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Listing Price"
-							class="w-20"
+							class="w-28"
+							icon={currencySymbol}
 							id="scenario-{scenario.key}-baseListingPrice"
 							min="0"
 							step="1"
@@ -54,7 +52,7 @@
 							bind:value={scenario.baseListingPrice}
 						/>
 					</td>
-					<td class="px-2 py-1.5">
+					<td class="py-1.5">
 						<Button title="Delete scenario '{scenario.name}'" onclick={() => removeScenario(index)}>
 							<span class="text-xs" aria-hidden="true">╳</span>
 						</Button>

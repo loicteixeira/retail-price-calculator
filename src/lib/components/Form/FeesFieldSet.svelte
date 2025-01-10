@@ -62,7 +62,7 @@
 							<option selected={fee.type == 'percent'}>%</option>
 						</select>
 					</td>
-					<td class="px-2 py-1.5">
+					<td class="py-1.5">
 						<Button onclick={() => removeFee(index)}>
 							<span class="text-xs" aria-hidden="true">╳</span>
 						</Button>

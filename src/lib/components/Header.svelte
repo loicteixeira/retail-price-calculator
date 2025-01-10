@@ -20,17 +20,5 @@
 				</span>
 			</a>
 		</div>
-
-		<div class="flex items-center">
-			<nav aria-label="Global" class="hidden md:block">
-				<ul class="flex items-center gap-6 text-sm">
-					<li>
-						<a class="text-gray-800 transition hover:text-teal-600 hover:underline" href="/">
-							Link
-						</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
 	</div>
 </header>

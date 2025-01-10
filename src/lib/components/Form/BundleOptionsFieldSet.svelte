@@ -80,7 +80,7 @@
 							bind:value={bundle.rounding}
 						/>
 					</td>
-					<td class="px-2 py-1.5">
+					<td class="py-1.5">
 						<Button title="Delete bundle '{bundle.name}'" onclick={() => removeBundle(index)}>
 							<span class="text-xs" aria-hidden="true">╳</span>
 						</Button>
