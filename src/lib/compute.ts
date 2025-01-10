@@ -58,8 +58,8 @@ export function computeResults({
 					formatCurrency(calculatedFees.total, currencyCode),
 					formatCurrency(itemsCost, currencyCode),
 					formatCurrency(net, currencyCode),
-					formatPercent(margin),
-					breakEven.toString()
+					margin === -Infinity ? '–' : formatPercent(margin),
+					isNaN(breakEven) || breakEven === 0 ? '–' : breakEven.toString()
 				]);
 				return acc;
 			},
