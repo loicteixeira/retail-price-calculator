@@ -16,19 +16,17 @@
 </script>
 
 <div
-	class="mt-1 flex rounded has-[:focus-within]:border-teal-600 has-[:focus-within]:ring has-[:focus-within]:ring-teal-300 has-[:focus-within]:ring-opacity-50 {extraClass}"
+	class="mt-1 flex rounded border border-gray-300 has-[:focus-within]:border has-[:focus-within]:border-teal-600 has-[:focus-within]:ring has-[:focus-within]:ring-teal-300 has-[:focus-within]:ring-opacity-50 {extraClass}"
 >
 	<input
-		class="border border-gray-300 focus:border-gray-300 focus:ring-0 {inputRoundedClass} w-full"
+		class="border-none focus:ring-0 {inputRoundedClass} w-full"
 		{id}
 		{type}
 		{...attrs}
 		bind:value
 	/>
 	{#if icon}
-		<span
-			class="inline-flex items-center rounded-e border border-s-0 border-gray-300 bg-gray-100 px-3 text-sm"
-		>
+		<span class="inline-flex items-center rounded-e bg-gray-100 px-3 text-sm">
 			{icon}
 		</span>
 	{/if}
