@@ -18,8 +18,8 @@
 		scenarios = $bindable()
 	}: Props = $props();
 
-	const suggestedWholesale = Math.round((unitCost ?? 0) * 3);
-	const suggestedRetail = Math.round((unitCost ?? 0) * 6);
+	const suggestedWholesale = $derived(Math.round((unitCost ?? 0) * 3));
+	const suggestedRetail = $derived(Math.round((unitCost ?? 0) * 6));
 
 	function addScenario(name: string = '', baseListingPrice: number = 0) {
 		scenarios.push({ baseListingPrice, key: crypto.randomUUID(), name });
