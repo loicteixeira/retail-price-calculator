@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { FormState } from '$lib/types';
+	import type { HTMLFieldsetAttributes } from 'svelte/elements';
 	import Button from '../Atoms/Button.svelte';
 	import FieldSet from '../Atoms/FieldSet.svelte';
 	import Input from '../Atoms/Input.svelte';
 
-	type Props = Pick<FormState, 'bundles'>;
-	let { bundles = $bindable() }: Props = $props();
+	type Props = Pick<FormState, 'bundles'> & Pick<HTMLFieldsetAttributes, 'class'>;
+	let { bundles = $bindable(), class: extraClass }: Props = $props();
 
 	function addBundle() {
 		bundles.push({
@@ -22,14 +23,14 @@
 	}
 </script>
 
-<FieldSet class="grow" title="Bundle Options">
+<FieldSet class=" {extraClass}" title="Bundle Options">
 	<table class="mr-auto table-fixed">
 		<thead>
 			<tr class="text-left align-text-top uppercase text-gray-700">
-				<th class="px-2">Name</th>
-				<th class="px-2">Buy</th>
-				<th class="px-2">Free</th>
-				<th colspan="2" class="px-2 leading-none">
+				<th class="w-3/6 px-2">Name</th>
+				<th class="w-1/6 px-2">Buy</th>
+				<th class="w-1/6 px-2">Free</th>
+				<th colspan="2" class="w-1/6 px-2 leading-none">
 					Rounding<br />
 					<span class="text-[.4em]">down to nearest</span>
 				</th>
@@ -38,10 +39,9 @@
 		<tbody>
 			{#each bundles as bundle, index (bundle.key)}
 				<tr>
-					<td class="w-full px-2 py-1.5">
+					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Name"
-							class="w-full"
 							id="bundle-{bundle.key}-name"
 							type="text"
 							bind:value={bundle.name}
@@ -50,7 +50,6 @@
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Buy"
-							class="w-14"
 							id="bundle-{bundle.key}-buyCount"
 							min="0"
 							step="1"
@@ -61,7 +60,6 @@
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Free"
-							class="w-14"
 							id="bundle-{bundle.key}-freeCount"
 							min="0"
 							step="1"

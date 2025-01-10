@@ -1,11 +1,13 @@
 <script lang="ts">
 	import type { FormState } from '$lib/types';
+	import type { HTMLFieldsetAttributes } from 'svelte/elements';
 	import Button from '../Atoms/Button.svelte';
 	import FieldSet from '../Atoms/FieldSet.svelte';
 	import Input from '../Atoms/Input.svelte';
 
-	type Props = Pick<FormState, 'fees'> & { currencySymbol: string };
-	let { currencySymbol, fees = $bindable() }: Props = $props();
+	type Props = Pick<FormState, 'fees'> &
+		Pick<HTMLFieldsetAttributes, 'class'> & { currencySymbol: string };
+	let { currencySymbol, fees = $bindable(), class: extraClass }: Props = $props();
 
 	function addFee() {
 		fees.push({
@@ -21,32 +23,24 @@
 	}
 </script>
 
-<FieldSet class="grow" title="Fees">
+<FieldSet class=" {extraClass}" title="Fees">
 	<table class="mr-auto table-fixed">
 		<thead>
 			<tr class="h-[2.3rem] text-left align-text-top uppercase text-gray-700">
-				<th class="px-2">Name</th>
-				<th class="px-2">Amount</th>
-				<th class="px-2">Type</th>
-				<th>&nbsp;</th>
+				<th class="w-3/5 px-2">Name</th>
+				<th class="w-1/5 px-2">Amount</th>
+				<th class="w-1/5 px-2" colspan="2">Type</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each fees as fee, index (fee.key)}
 				<tr>
-					<td class="w-full px-2 py-1.5">
-						<Input
-							aria-label="Name"
-							class="w-full"
-							id="fee-{fee.key}-name"
-							type="text"
-							bind:value={fee.name}
-						/>
+					<td class="px-2 py-1.5">
+						<Input aria-label="Name" id="fee-{fee.key}-name" type="text" bind:value={fee.name} />
 					</td>
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Amount"
-							class="w-20"
 							id="fee-{fee.key}-amount"
 							type="number"
 							bind:value={fee.amount}
@@ -56,7 +50,7 @@
 						<select
 							id="fee-{fee.key}-type"
 							aria-label="type"
-							class="w-18 mt-1 block rounded border-gray-300 focus:border-teal-600 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
+							class="mt-1 block rounded border-gray-300 focus:border-teal-600 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
 						>
 							<option selected={fee.type == 'flat'}>{currencySymbol}</option>
 							<option selected={fee.type == 'percent'}>%</option>

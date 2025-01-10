@@ -10,7 +10,7 @@
 
 	let currencySymbol = $derived(getCurrencySymbol(form.currencyCode));
 
-	let { columns, groups } = $derived.by(() => {
+	let results = $derived.by(() => {
 		return computeResults({
 			currencyCode: form.currencyCode,
 			fees: form.fees,
@@ -38,77 +38,74 @@
 </script>
 
 <div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-	<form class="flex flex-col gap-6" novalidate>
-		<div class="flex flex-row flex-wrap gap-6">
+	<form class="my-8 flex flex-col gap-6" novalidate>
+		<div class="flex flex-row flex-wrap justify-between gap-6">
 			<Form.ProductInfoFieldSet
 				{currencySymbol}
 				bind:orderCount={form.orderCount}
 				bind:unitCost={form.unitCost}
 			/>
 
-			<span class="grow">&nbsp</span>
-
-			<Form.SettingsFieldSet bind:currencyCode={form.currencyCode} />
-			<Form.ActionsFieldSet {onClearData} {onLoadDemoData} />
+			<div class="space-between flex flex-row flex-wrap gap-6">
+				<Form.SettingsFieldSet bind:currencyCode={form.currencyCode} />
+				<Form.ActionsFieldSet {onClearData} {onLoadDemoData} />
+			</div>
 		</div>
 
-		<div class="flex flex-row flex-wrap gap-6">
+		<div class="grid-warp grid grid-cols-[repeat(auto-fit,_minmax(150px,auto))] gap-6">
 			<Form.ScenariosFieldSet
+				class="col-span-2"
 				currencyCode={form.currencyCode}
 				{currencySymbol}
 				unitCost={form.unitCost}
 				bind:scenarios={form.scenarios}
 			/>
-			<Form.BundleOptionsFieldSet bind:bundles={form.bundles} />
-			<Form.FeesFieldSet {currencySymbol} bind:fees={form.fees} />
+			<Form.BundleOptionsFieldSet class="col-span-3" bind:bundles={form.bundles} />
+			<Form.FeesFieldSet class="col-span-3" {currencySymbol} bind:fees={form.fees} />
 		</div>
 	</form>
 
-	<span class="my-8 flex items-center">
-		<span class="h-px flex-1 bg-gray-300"></span>
-		<span class="shrink-0 px-6">Results</span>
-		<span class="h-px flex-1 bg-gray-300"></span>
-	</span>
-
-	<table class="mr-auto table-fixed">
-		<thead>
-			<tr class="text-left align-text-top uppercase text-gray-700">
-				{#each columns as column}
-					<th
-						class="px-2 {'children' in column && 'text-center'}"
-						rowspan={'children' in column ? 1 : 2}
-						colspan={'children' in column ? column.children.length : 1}
-					>
-						{column.label}
-					</th>
-				{/each}
-			</tr>
-			<tr class="text-left align-text-top uppercase text-gray-700">
-				{#each columns as column}
-					{#if 'children' in column}
-						{#each column.children as child}
-							<th class="px-2">{child}</th>
-						{/each}
-					{/if}
-				{/each}
-			</tr>
-		</thead>
-		<tbody>
-			{#each groups as group, index}
-				<tr class={index !== 0 ? 'border-t-2' : ''}>
-					<td class="px-2 py-1.5" rowspan={group.rows.length}>{group.label}</td>
-					{#each group.rows[0] as cell}
-						<td class="px-2 py-1.5">{cell}</td>
+	{#if results}
+		<table class="table-auto">
+			<thead class="uppercase text-gray-700">
+				<tr class="text-left align-text-top">
+					{#each results.columns as column}
+						<th
+							class="px-2 {column.children && 'text-center'}"
+							rowspan={column.children ? 1 : 2}
+							colspan={column.children ? column.children.length : 1}
+						>
+							{column.label}
+						</th>
 					{/each}
 				</tr>
-				{#each group.rows.slice(1) as cells}
-					<tr>
-						{#each cells as cell}
+				<tr class="text-left align-text-top">
+					{#each results.columns as column}
+						{#if column.children}
+							{#each column.children as child}
+								<th class="px-2">{child}</th>
+							{/each}
+						{/if}
+					{/each}
+				</tr>
+			</thead>
+			<tbody>
+				{#each results.groups as group, index}
+					<tr class={index !== 0 ? 'border-t-2' : ''}>
+						<td class="px-2 py-1.5" rowspan={group.rows.length}>{group.label}</td>
+						{#each group.rows[0] as cell}
 							<td class="px-2 py-1.5">{cell}</td>
 						{/each}
 					</tr>
+					{#each group.rows.slice(1) as cells}
+						<tr>
+							{#each cells as cell}
+								<td class="px-2 py-1.5">{cell}</td>
+							{/each}
+						</tr>
+					{/each}
 				{/each}
-			{/each}
-		</tbody>
-	</table>
+			</tbody>
+		</table>
+	{/if}
 </div>

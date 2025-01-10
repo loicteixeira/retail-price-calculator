@@ -10,7 +10,7 @@ type ComputeResultsOptions = {
 };
 
 type ComputeResultsOutput = {
-	columns: ({ label: string } | { label: string; children: string[] })[];
+	columns: { label: string; children?: string[] }[];
 	groups: {
 		label: string;
 		rows: string[][];
@@ -23,7 +23,7 @@ export function computeResults({
 	productInformation,
 	salesOptions,
 	scenarios
-}: ComputeResultsOptions): ComputeResultsOutput {
+}: ComputeResultsOptions): ComputeResultsOutput | null {
 	const columns = [
 		{ label: 'Scenario' },
 		{ label: 'Name' },
@@ -68,7 +68,7 @@ export function computeResults({
 		return { label: scenario.name, rows };
 	});
 
-	return { columns, groups };
+	return groups.length !== 0 ? { columns, groups } : null;
 }
 
 function computeFees(listingPrice: number, fees: ComputeResultsOptions['fees']) {

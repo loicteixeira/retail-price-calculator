@@ -19,7 +19,7 @@
 	class="mt-1 flex rounded has-[:focus-within]:border-teal-600 has-[:focus-within]:ring has-[:focus-within]:ring-teal-300 has-[:focus-within]:ring-opacity-50 {extraClass}"
 >
 	<input
-		class="block border border-gray-300 focus:border-gray-300 focus:ring-0 {inputRoundedClass} w-full"
+		class="border border-gray-300 focus:border-gray-300 focus:ring-0 {inputRoundedClass} w-full"
 		{id}
 		{type}
 		{...attrs}

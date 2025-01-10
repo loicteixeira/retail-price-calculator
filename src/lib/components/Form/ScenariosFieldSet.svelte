@@ -1,14 +1,22 @@
 <script lang="ts">
 	import { formatCurrency } from '$lib/i18n';
 	import type { FormState } from '$lib/types';
+	import type { HTMLFieldsetAttributes } from 'svelte/elements';
 	import Button from '../Atoms/Button.svelte';
 	import FieldSet from '../Atoms/FieldSet.svelte';
 	import Input from '../Atoms/Input.svelte';
 
-	type Props = Pick<FormState, 'currencyCode' | 'unitCost' | 'scenarios'> & {
-		currencySymbol: string;
-	};
-	let { currencyCode, currencySymbol, unitCost = 1, scenarios = $bindable() }: Props = $props();
+	type Props = Pick<FormState, 'currencyCode' | 'unitCost' | 'scenarios'> &
+		Pick<HTMLFieldsetAttributes, 'class'> & {
+			currencySymbol: string;
+		};
+	let {
+		currencyCode,
+		currencySymbol,
+		class: extraClass,
+		unitCost = 1,
+		scenarios = $bindable()
+	}: Props = $props();
 
 	const suggestedWholesale = Math.round((unitCost ?? 0) * 3);
 	const suggestedRetail = Math.round((unitCost ?? 0) * 6);
@@ -31,21 +39,20 @@
 	}
 </script>
 
-<FieldSet title="Scenarios">
+<FieldSet class=" {extraClass}" title="Scenarios">
 	<table class="mr-auto table-fixed">
 		<thead>
 			<tr class="text-left align-text-top uppercase text-gray-700">
-				<th class="px-2">Name</th>
-				<th colspan="2" class="px-2 leading-none"> Listing Price </th>
+				<th class="w-3/5 px-2">Name</th>
+				<th colspan="2" class="w-2/5 px-2 leading-none">Listing Price</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each scenarios as scenario, index (scenario.key)}
 				<tr>
-					<td class="w-44 px-2 py-1.5">
+					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Name"
-							class="w-full"
 							id="scenario-{scenario.key}-name"
 							type="text"
 							bind:value={scenario.name}
@@ -54,7 +61,6 @@
 					<td class="px-2 py-1.5">
 						<Input
 							aria-label="Listing Price"
-							class="w-28"
 							icon={currencySymbol}
 							id="scenario-{scenario.key}-baseListingPrice"
 							min="0"
