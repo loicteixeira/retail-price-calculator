@@ -9,7 +9,7 @@ type ComputeResultsOptions = {
 	scenarios: Pick<Scenario, 'name' | 'baseListingPrice'>[];
 };
 
-type ComputeResultsOutput = {
+export type ComputeResultsOutput = {
 	columns: { label: string; children?: string[] }[];
 	groups: {
 		label: string;
