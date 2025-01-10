@@ -8,8 +8,8 @@
 
 	let currencySymbol = $derived(getCurrencySymbol(form.state.currencyCode));
 
-	let results = $derived.by(() => {
-		return computeResults({
+	let results = $derived(
+		computeResults({
 			currencyCode: form.state.currencyCode,
 			fees: form.state.fees,
 			salesOptions: [
@@ -26,8 +26,8 @@
 				unitCost: form.state.unitCost || 0
 			},
 			scenarios: form.state.scenarios
-		});
-	});
+		})
+	);
 </script>
 
 <div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
