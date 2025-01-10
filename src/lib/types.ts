@@ -5,7 +5,7 @@ export type Bundle = {
 	freeCount: number;
 	key: string;
 	name: string;
-	rounding: number | null;
+	rounding: 0.1 | 1 | 5 | 10 | null;
 };
 
 export type CurrencyCode = (typeof CURRENCY_CODES)[number];

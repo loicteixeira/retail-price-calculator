@@ -70,16 +70,19 @@
 						/>
 					</td>
 					<td class="px-2 py-1.5">
-						<Input
-							aria-label="Round down to nearest"
-							class="w-20"
+						<select
+							class="mt-1 block w-20 rounded border-gray-300 focus:border-teal-600 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
 							id="bundle-{bundle.key}-rounding"
-							min="0"
-							step="0.1"
-							type="number"
 							bind:value={bundle.rounding}
-						/>
-					</td>
+						>
+							<option value={null}></option>
+							<option value={0.1}>0.1</option>
+							<option value={1}>1</option>
+							<option value={2}>2</option>
+							<option value={5}>5</option>
+							<option value={10}>10</option>
+						</select></td
+					>
 					<td class="py-1.5">
 						<Button title="Delete bundle '{bundle.name}'" onclick={() => removeBundle(index)}>
 							<span class="text-xs" aria-hidden="true">╳</span>

@@ -40,7 +40,7 @@ export function computeResults({
 			(acc, { buyCount, freeCount, name, rounding }) => {
 				let listingPrice = scenario.baseListingPrice * buyCount;
 				if (rounding) {
-					listingPrice = Math.floor(listingPrice / rounding) * rounding;
+					listingPrice = roundDownToNearest(listingPrice, rounding);
 				}
 
 				const calculatedFees = computeFees(listingPrice, fees);
@@ -82,4 +82,9 @@ function computeFees(listingPrice: number, fees: ComputeResultsOptions['fees']) 
 	});
 	const total = details.reduce((a, b) => a + b, 0);
 	return { details, total };
+}
+
+function roundDownToNearest(value: number, rounding: NonNullable<Bundle['rounding']>) {
+	const rounded = Math.floor(value / rounding) * rounding;
+	return rounded === value ? rounded - rounding : rounded;
 }
