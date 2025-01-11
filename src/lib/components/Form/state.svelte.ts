@@ -14,8 +14,10 @@ export function useState() {
 	}
 
 	return {
+		get state() {
+			return state;
+		},
 		onClearData,
-		onLoadDemoData,
-		state
+		onLoadDemoData
 	};
 }
