@@ -5,7 +5,7 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	kit: {
 		adapter: adapter(),
-		output: { bundleStrategy: 'inline' }
+		output: { bundleStrategy: 'split' }
 	},
 	preprocess: vitePreprocess()
 };
