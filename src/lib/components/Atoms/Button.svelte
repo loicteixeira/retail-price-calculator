@@ -22,9 +22,12 @@
 </script>
 
 <button
-	class="rounded px-2 py-1 {colors[variant]}
-	focus-visible:outline focus-visible:outline-teal-600 focus-visible:ring focus-visible:ring-teal-300 focus-visible:ring-opacity-50
-	 {extraClass}"
+	class={[
+		'rounded px-2 py-1',
+		colors[variant],
+		'focus-visible:outline focus-visible:outline-teal-600 focus-visible:ring focus-visible:ring-teal-300 focus-visible:ring-opacity-50',
+		extraClass
+	]}
 	{type}
 	{...attrs}
 >

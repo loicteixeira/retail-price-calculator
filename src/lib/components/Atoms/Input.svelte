@@ -11,15 +11,17 @@
 		value = $bindable(),
 		...attrs
 	}: Props = $props();
-
-	const inputRoundedClass = icon ? 'rounded-s border-e-0' : 'rounded';
 </script>
 
 <div
-	class="mt-1 flex rounded border border-gray-300 has-[:focus-within]:border has-[:focus-within]:border-teal-600 has-[:focus-within]:ring has-[:focus-within]:ring-teal-300 has-[:focus-within]:ring-opacity-50 {extraClass}"
+	class={[
+		'mt-1 flex rounded border border-gray-300',
+		'has-[:focus-within]:border has-[:focus-within]:border-teal-600 has-[:focus-within]:ring has-[:focus-within]:ring-teal-300 has-[:focus-within]:ring-opacity-50',
+		extraClass
+	]}
 >
 	<input
-		class="border-none focus:ring-0 {inputRoundedClass} w-full"
+		class={['w-full border-none focus:ring-0', icon ? 'rounded-s border-e-0' : 'rounded']}
 		{id}
 		{type}
 		{...attrs}
