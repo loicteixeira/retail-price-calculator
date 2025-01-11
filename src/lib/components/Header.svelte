@@ -1,3 +1,12 @@
+<script lang="ts">
+	import { page } from '$app/state';
+
+	const menuLinks = [
+		{ path: '/', text: 'Home' },
+		{ path: '/about', text: 'About' }
+	];
+</script>
+
 <header class="mb-8 bg-gray-200">
 	<div
 		class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-12 px-4 sm:px-6 lg:px-8"
@@ -22,6 +31,26 @@
 					Retail Price Calculator
 				</span>
 			</a>
+		</div>
+
+		<div class="flex items-center">
+			<nav aria-label="Global" class="hidden md:block">
+				<ul class="text flex items-center gap-6">
+					{#each menuLinks as { path, text } (path)}
+						<li>
+							<a
+								class={[
+									page.route.id === path && 'underline decoration-teal-600',
+									'text-gray-800 transition hover:text-teal-600 hover:underline'
+								]}
+								href={path}
+							>
+								{text}
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</nav>
 		</div>
 	</div>
 </header>
