@@ -69,7 +69,8 @@
 					</td>
 					<td class="px-2 py-1.5">
 						<select
-							class="mt-1 block w-20 rounded border-gray-300 focus:border-teal-600 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
+							aria-label="Rounding Down To Nearest"
+							class="mt-1 block w-20 rounded border-gray-300 focus:border-teal-700 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
 							id="bundle-{bundle.key}-rounding"
 							bind:value={bundle.rounding}
 						>

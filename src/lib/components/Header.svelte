@@ -13,10 +13,16 @@
 	>
 		<div>
 			<a
-				class="flex items-center gap-3 rounded pe-1 text-teal-600 focus-visible:outline focus-visible:outline-teal-600 focus-visible:ring focus-visible:ring-teal-300 focus-visible:ring-opacity-50"
+				class="flex items-center gap-3 rounded pe-1 text-teal-700 focus-visible:outline focus-visible:outline-teal-700 focus-visible:ring focus-visible:ring-teal-300 focus-visible:ring-opacity-50"
 				href="/"
 			>
-				<svg class="h-8" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" fill="none">
+				<svg
+					class="h-8"
+					viewBox="0 0 192 192"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					aria-hidden="true"
+				>
 					<g id="iconCarrier">
 						<path
 							stroke="currentColor"
@@ -27,7 +33,7 @@
 						</path>
 					</g>
 				</svg>
-				<span class="text-2xl text-gray-800 transition hover:text-teal-600">
+				<span class="text-2xl text-gray-800 transition hover:text-teal-700">
 					Retail Price Calculator
 				</span>
 			</a>
@@ -40,8 +46,8 @@
 						<li>
 							<a
 								class={[
-									page.route.id === path && 'underline decoration-teal-600',
-									'text-gray-800 transition hover:text-teal-600 hover:underline'
+									page.route.id === path && 'underline decoration-teal-700',
+									'text-gray-800 decoration-2 underline-offset-2 transition hover:text-teal-700 hover:underline'
 								]}
 								href={path}
 							>

@@ -48,9 +48,9 @@
 					</td>
 					<td class="px-2 py-1.5">
 						<select
-							id="fee-{fee.key}-type"
 							aria-label="type"
-							class="mt-1 block rounded border-gray-300 focus:border-teal-600 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
+							class="mt-1 block rounded border-gray-300 focus:border-teal-700 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
+							id="fee-{fee.key}-type"
 						>
 							<option selected={fee.type == 'flat'}>{currencySymbol}</option>
 							<option selected={fee.type == 'percent'}>%</option>

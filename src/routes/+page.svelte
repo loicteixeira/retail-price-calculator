@@ -30,6 +30,14 @@
 	);
 </script>
 
+<svelte:head>
+	<title>Retail Price Calculator</title>
+	<meta
+		name="description"
+		content="This Retail Price Calculator is a tool designed to help you decide how to price your retail products, taking into account a base price, bundles options and various fees."
+	/>
+</svelte:head>
+
 <div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
 	<form class="my-8 flex flex-col gap-6" novalidate>
 		<div class="flex flex-row flex-wrap justify-between gap-6">

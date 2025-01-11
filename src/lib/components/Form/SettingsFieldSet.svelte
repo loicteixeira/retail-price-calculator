@@ -11,7 +11,7 @@
 	<label class="block">
 		Currency
 		<select
-			class="mt-1 block w-32 rounded border-gray-300 focus:border-teal-600 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
+			class="mt-1 block w-32 rounded border-gray-300 focus:border-teal-700 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
 			id="currency-code"
 			bind:value={currencyCode}
 		>
