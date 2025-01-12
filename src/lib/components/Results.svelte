@@ -12,8 +12,12 @@
 			<tr class="border-inherit">
 				{#each columns as column}
 					<th
-						class="border-inherit px-4 py-3 [&:not(:last-child)]:border-e"
+						class={[
+							'border-inherit px-4 py-3 [&:not(:last-child)]:border-e',
+							!column.children && 'border-b '
+						]}
 						colspan={column.children ? column.children.length : 1}
+						rowspan={column.children ? 1 : 2}
 					>
 						{column.label}
 					</th>
@@ -25,29 +29,38 @@
 						{#each column.children as child}
 							<th class="border border-inherit px-4 py-3">{child}</th>
 						{/each}
-					{:else}
-						<th class="border-b border-inherit px-4 py-3 [&:not(:last-child)]:border-e">&nbsp;</th>
 					{/if}
 				{/each}
 			</tr>
 		</thead>
 		<tbody class="border-inherit">
-			{#each groups as group}
+			{#each groups as group, groupIndex}
+				{@const oddGroup = groupIndex % 2}
+				{@const oddFirstRow = (oddGroup * group.rows.length) % 2}
 				<tr class="border-b border-inherit">
 					<td
-						class="border-inherit px-4 py-3 [&:not(:last-child)]:border-e"
+						class={[
+							'border-inherit px-4 py-3 [&:not(:last-child)]:border-e',
+							oddGroup && 'bg-gray-100'
+						]}
 						rowspan={group.rows.length}
 					>
 						{group.label}
 					</td>
 					{#each group.rows[0] as cell}
-						<td class="border-inherit px-4 py-3 [&:not(:last-child)]:border-e">{cell}</td>
+						<td
+							class={[
+								'border-inherit px-4 py-3 [&:not(:last-child)]:border-e',
+								oddFirstRow && 'bg-gray-100'
+							]}>{cell}</td
+						>
 					{/each}
 				</tr>
-				{#each group.rows.slice(1) as cells}
-					<tr class="border-inherit [&:not(:last-child)]:border-b">
-						{#each cells as cell}
-							<td class="border-inherit px-4 py-3 [&:not(:last-child)]:border-e">{cell}</td>
+				{#each group.rows.slice(1) as row, rowIndex}
+					{@const evenRow = (oddGroup * group.rows.length + rowIndex) % 2 === 0}
+					<tr class={['border-inherit [&:not(:last-child)]:border-b', evenRow && 'bg-gray-100']}>
+						{#each row as cell}
+							<td class="border-inherit px-4 py-3 [&:not(:last-child)]:border-e"> {cell}</td>
 						{/each}
 					</tr>
 				{/each}
