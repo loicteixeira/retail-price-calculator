@@ -48,4 +48,19 @@
 		<a href="https://etcsv-stats.netlify.app/"> Etcsv Stats </a>, a tool designed to help you make
 		sense of your sales on Etsy.
 	</p>
+
+	<h2>Changelog</h2>
+
+	<h3><time datetime="2025-01-12">January 12th 2025</time></h3>
+
+	<ul>
+		<li>Alternate row colors in results table</li>
+		<li>Add link to feedback form and support</li>
+	</ul>
+
+	<h3><time datetime="2025-01-11">January 11th 2025</time></h3>
+
+	<ul>
+		<li>Initial Release</li>
+	</ul>
 </div>
