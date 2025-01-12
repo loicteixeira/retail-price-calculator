@@ -66,24 +66,24 @@ const demo: FormState = {
 			type: 'flat'
 		},
 		{
-			amount: 1.5,
+			amount: 1.75,
 			key: crypto.randomUUID(),
 			name: 'Transaction Percent',
 			type: 'percent'
 		},
 		{
-			amount: 5,
+			amount: 0.5,
 			key: crypto.randomUUID(),
-			name: 'Shipping',
+			name: 'Packaging',
 			type: 'flat'
 		}
 	],
 	orderCount: 100,
 	scenarios: [
-		{ baseListingPrice: 30, name: 'Wholesale', key: crypto.randomUUID() },
-		{ baseListingPrice: 60, name: 'Retail', key: crypto.randomUUID() }
+		{ baseListingPrice: 10, name: 'Wholesale', key: crypto.randomUUID() },
+		{ baseListingPrice: 20, name: 'Retail', key: crypto.randomUUID() }
 	],
-	unitCost: 12.34
+	unitCost: 3.5
 };
 
 const empty: FormState = {
