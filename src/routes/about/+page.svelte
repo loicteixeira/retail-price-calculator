@@ -16,11 +16,6 @@
 		and various fees.
 	</p>
 
-	<p>
-		If you have any feedback (bug or feature request), please use this
-		<a href="https://forms.gle/xrsSzuvchw26hppBA">Google Form</a>.
-	</p>
-
 	<h2>Frequently Asked Questions</h2>
 
 	<h3>Is my data safe?</h3>
@@ -29,5 +24,12 @@
 		The values you enter in the calculator are never uploaded to any server;<br />Your personal data
 		is never collected or used in any way while using this calculator.<br />You don’t need to create
 		an account or log in to use it.
+	</p>
+
+	<h3>How can I share feedback?</h3>
+
+	<p>
+		Please use this <a href="https://forms.gle/xrsSzuvchw26hppBA">Google Form</a>
+		for bug reports and feature requests.
 	</p>
 </div>
