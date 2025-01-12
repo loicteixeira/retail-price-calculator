@@ -14,6 +14,11 @@
 	help you decide how to price your retail products, taking into account a base price, bundles
 	options and various fees.
 
+	<p>
+		If you have any feedback (bug or feature request), please use this
+		<a href="https://forms.gle/xrsSzuvchw26hppBA">Google Form</a>.
+	</p>
+
 	<h2>Frequently Asked Questions</h2>
 
 	<h3>Is my data safe?</h3>
