@@ -32,4 +32,20 @@
 		Please use this <a href="https://forms.gle/xrsSzuvchw26hppBA">Google Form</a>
 		for bug reports and feature requests.
 	</p>
+
+	<h3>
+		How can I support this project and your other dev projects aimed at helping indie businesses?
+	</h3>
+
+	<p>
+		Thank you for wanting to support my work! If you'd like to leave a tip, you can do so through my
+		wife's <a href="https://ko-fi.com/abandonambition">Ko-Fi tip jar</a>. Don't worry, she'll make
+		sure to share it. 😉
+	</p>
+
+	<p>
+		Speaking of other projects, you might be interested in
+		<a href="https://etcsv-stats.netlify.app/"> Etcsv Stats </a>, a tool designed to help you make
+		sense of your sales on Etsy.
+	</p>
 </div>
