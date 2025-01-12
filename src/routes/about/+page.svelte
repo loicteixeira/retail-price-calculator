@@ -58,6 +58,9 @@
 			‼️ Update the break even calculation. It now displays the total number of items needed to be
 			sold to recoup costs, instead of the total number of sales of the given bundle.
 		</li>
+		<li>
+			Add a warning for negative net & margin, and break even value which exceeds the order count.
+		</li>
 		<li>Alternate row colors in results table.</li>
 		<li>Add link to feedback form and support.</li>
 	</ul>
