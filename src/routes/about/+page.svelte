@@ -54,13 +54,17 @@
 	<h3 id="2025-01-12"><time datetime="2025-01-12">January 12th 2025</time></h3>
 
 	<ul>
-		<li>Alternate row colors in results table</li>
-		<li>Add link to feedback form and support</li>
+		<li>
+			‼️ Update the break even calculation. It now displays the total number of items needed to be
+			sold to recoup costs, instead of the total number of sales of the given bundle.
+		</li>
+		<li>Alternate row colors in results table.</li>
+		<li>Add link to feedback form and support.</li>
 	</ul>
 
 	<h3 id="2025-01-11"><time datetime="2025-01-11">January 11th 2025</time></h3>
 
 	<ul>
-		<li>Initial Release</li>
+		<li>Initial Release.</li>
 	</ul>
 </div>

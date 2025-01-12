@@ -44,12 +44,13 @@ export function computeResults({
 				}
 
 				const calculatedFees = computeFees(listingPrice, fees);
-				const itemsCost = productInformation.unitCost * (buyCount + freeCount);
+				const itemsCount = buyCount + freeCount;
+				const itemsCost = productInformation.unitCost * itemsCount;
 				const net = listingPrice - itemsCost - calculatedFees.total;
 				const margin = net / listingPrice;
-				const breakEven = Math.ceil(
-					(productInformation.orderCount * productInformation.unitCost) / net
-				);
+				const breakEven =
+					Math.ceil((productInformation.orderCount * productInformation.unitCost) / net) *
+					itemsCount;
 
 				acc.push([
 					name,
