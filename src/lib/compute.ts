@@ -9,13 +9,13 @@ type ComputeResultsOptions = {
 	scenarios: Pick<Scenario, 'name' | 'baseListingPrice'>[];
 };
 
-type ResultColumn = { id: string; label: string };
-export type ResultTopColumn = ResultColumn & { children?: ResultColumn[] };
-export type ResultRow = { type: 'text' | 'number'; value: string; warning?: string | null };
+type ResultsBaseColumn = { id: string; label: string };
+export type ResultsColumn = ResultsBaseColumn & { children?: ResultsBaseColumn[] };
+export type ResultsRow = { type: 'text' | 'number'; value: string; warning?: string | null };
 
 export type ComputeResultsOutput = {
-	columns: ResultTopColumn[];
-	groups: { label: string; rows: ResultRow[][] }[];
+	columns: ResultsColumn[];
+	groups: { label: string; rows: ResultsRow[][] }[];
 };
 
 export function computeResults({
@@ -25,7 +25,7 @@ export function computeResults({
 	salesOptions,
 	scenarios
 }: ComputeResultsOptions): ComputeResultsOutput | null {
-	const columns: ResultTopColumn[] = [
+	const columns: ResultsColumn[] = [
 		{ id: 'scenario', label: 'Scenario' },
 		{ id: 'name', label: 'Name' },
 		{ id: 'listing', label: 'Listing Price' },

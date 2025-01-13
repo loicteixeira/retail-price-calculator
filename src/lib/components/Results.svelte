@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ComputeResultsOutput, ResultRow } from '$lib/compute';
+	import type { ComputeResultsOutput, ResultsRow } from '$lib/compute';
 
 	let { columns, groups }: ComputeResultsOutput = $props();
 	let columnIds = $derived(
@@ -67,7 +67,7 @@
 	</table>
 </div>
 
-{#snippet cell({ id, odd, type, value, warning }: ResultRow & { odd?: boolean; id: string })}
+{#snippet cell({ id, odd, type, value, warning }: ResultsRow & { odd?: boolean; id: string })}
 	<td
 		class={[
 			'break-normal',
