@@ -2,6 +2,9 @@
 	import type { ComputeResultsOutput, ResultRow } from '$lib/compute';
 
 	let { columns, groups }: ComputeResultsOutput = $props();
+	let columnIds = $derived(
+		columns.flatMap((column) => column.children?.map((child) => child.id) ?? column.id)
+	);
 </script>
 
 <div class="overflow-x-auto rounded border border-gray-300">
@@ -27,7 +30,7 @@
 				{#each columns as column}
 					{#if column.children}
 						{#each column.children as child}
-							<th class="border border-inherit px-4 py-3">{child}</th>
+							<th class="border border-inherit px-4 py-3">{child.label}</th>
 						{/each}
 					{/if}
 				{/each}
@@ -47,15 +50,15 @@
 					>
 						{group.label}
 					</td>
-					{#each group.rows[0] as { type, value, warning }}
-						{@render cell({ type, value, warning, odd: oddFirstRow })}
+					{#each group.rows[0] as { type, value, warning }, cellIndex}
+						{@render cell({ type, value, warning, odd: oddFirstRow, id: columnIds[cellIndex + 1] })}
 					{/each}
 				</tr>
 				{#each group.rows.slice(1) as row, rowIndex}
 					{@const evenRow = (oddGroup * group.rows.length + rowIndex) % 2 === 0}
 					<tr class={['border-inherit [&:not(:last-child)]:border-b', evenRow && 'bg-gray-100']}>
-						{#each row as { type, value, warning }}
-							{@render cell({ type, value, warning })}
+						{#each row as { type, value, warning }, cellIndex}
+							{@render cell({ type, value, warning, id: columnIds[cellIndex + 1] })}
 						{/each}
 					</tr>
 				{/each}
@@ -64,13 +67,16 @@
 	</table>
 </div>
 
-{#snippet cell({ type, value, warning, odd }: ResultRow & { odd?: boolean })}
+{#snippet cell({ id, odd, type, value, warning }: ResultRow & { odd?: boolean; id: string })}
 	<td
 		class={[
 			'break-normal',
 			'border-inherit px-4 py-3 [&:not(:last-child)]:border-e',
 			type === 'number' && 'text-right',
-			odd && 'bg-gray-100'
+			odd && 'bg-gray-100',
+			id === 'fees' && 'text-rose-800',
+			id === 'fees-total' && 'font-bold text-rose-800',
+			id === 'net' && 'font-bold text-emerald-800'
 		]}
 	>
 		<span

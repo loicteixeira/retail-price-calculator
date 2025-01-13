@@ -56,6 +56,7 @@
 	<ul>
 		<li>Rework warnings display and add a message on hover.</li>
 		<li>Right align numbers in table.</li>
+		<li>Highlight fees and net values in table.</li>
 	</ul>
 
 	<h3 id="2025-01-12"><time datetime="2025-01-12">January 12th 2025</time></h3>

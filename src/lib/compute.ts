@@ -9,10 +9,12 @@ type ComputeResultsOptions = {
 	scenarios: Pick<Scenario, 'name' | 'baseListingPrice'>[];
 };
 
+type ResultColumn = { id: string; label: string };
+export type ResultTopColumn = ResultColumn & { children?: ResultColumn[] };
 export type ResultRow = { type: 'text' | 'number'; value: string; warning?: string | null };
 
 export type ComputeResultsOutput = {
-	columns: { label: string; children?: string[] }[];
+	columns: ResultTopColumn[];
 	groups: { label: string; rows: ResultRow[][] }[];
 };
 
@@ -23,15 +25,22 @@ export function computeResults({
 	salesOptions,
 	scenarios
 }: ComputeResultsOptions): ComputeResultsOutput | null {
-	const columns = [
-		{ label: 'Scenario' },
-		{ label: 'Name' },
-		{ label: 'Listing Price' },
-		{ label: 'Fees', children: [...fees.map((fee) => fee.name), 'Total'] },
-		{ label: 'Items Cost' },
-		{ label: 'Net' },
-		{ label: 'Margin' },
-		{ label: 'Break Even' }
+	const columns: ResultTopColumn[] = [
+		{ id: 'scenario', label: 'Scenario' },
+		{ id: 'name', label: 'Name' },
+		{ id: 'listing', label: 'Listing Price' },
+		{
+			id: 'fees',
+			label: 'Fees',
+			children: [
+				...fees.map((fee) => ({ id: 'fees', label: fee.name })),
+				{ id: 'fees-total', label: 'Total' }
+			]
+		},
+		{ id: 'items', label: 'Items Cost' },
+		{ id: 'net', label: 'Net' },
+		{ id: 'margin', label: 'Margin' },
+		{ id: 'break-even', label: 'Break Even' }
 	];
 
 	const groups = scenarios.map((scenario) => {
