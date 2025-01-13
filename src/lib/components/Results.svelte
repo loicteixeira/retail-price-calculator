@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ComputeResultsOutput } from '$lib/compute';
+	import type { ComputeResultsOutput, ResultRow } from '$lib/compute';
 
 	let { columns, groups }: ComputeResultsOutput = $props();
 </script>
@@ -36,7 +36,7 @@
 		<tbody class="border-inherit">
 			{#each groups as group, groupIndex}
 				{@const oddGroup = groupIndex % 2}
-				{@const oddFirstRow = (oddGroup * group.rows.length) % 2}
+				{@const oddFirstRow = (oddGroup * group.rows.length) % 2 === 1}
 				<tr class="border-b border-inherit">
 					<td
 						class={[
@@ -47,20 +47,15 @@
 					>
 						{group.label}
 					</td>
-					{#each group.rows[0] as cell}
-						<td
-							class={[
-								'border-inherit px-4 py-3 [&:not(:last-child)]:border-e',
-								oddFirstRow && 'bg-gray-100'
-							]}>{cell}</td
-						>
+					{#each group.rows[0] as { type, value, warning }}
+						{@render cell({ type, value, warning, odd: oddFirstRow })}
 					{/each}
 				</tr>
 				{#each group.rows.slice(1) as row, rowIndex}
 					{@const evenRow = (oddGroup * group.rows.length + rowIndex) % 2 === 0}
 					<tr class={['border-inherit [&:not(:last-child)]:border-b', evenRow && 'bg-gray-100']}>
-						{#each row as cell}
-							<td class="border-inherit px-4 py-3 [&:not(:last-child)]:border-e"> {cell}</td>
+						{#each row as { type, value, warning }}
+							{@render cell({ type, value, warning })}
 						{/each}
 					</tr>
 				{/each}
@@ -68,3 +63,21 @@
 		</tbody>
 	</table>
 </div>
+
+{#snippet cell({ type, value, warning, odd }: ResultRow & { odd?: boolean })}
+	<td
+		class={[
+			'break-normal',
+			'border-inherit px-4 py-3 [&:not(:last-child)]:border-e',
+			type === 'number' && 'text-right',
+			odd && 'bg-gray-100'
+		]}
+	>
+		<span
+			class={[warning && 'cursor-help underline decoration-red-600 decoration-wavy decoration-2']}
+			title={warning ? warning : ''}
+		>
+			{value}
+		</span>
+	</td>
+{/snippet}

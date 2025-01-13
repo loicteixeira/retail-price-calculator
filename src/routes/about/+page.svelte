@@ -51,6 +51,13 @@
 
 	<h2 id="changelog">Changelog</h2>
 
+	<h3 id="2025-01-13"><time datetime="2025-01-13">January 13th 2025</time></h3>
+
+	<ul>
+		<li>Rework warnings display and add a message on hover.</li>
+		<li>Right align numbers in table.</li>
+	</ul>
+
 	<h3 id="2025-01-12"><time datetime="2025-01-12">January 12th 2025</time></h3>
 
 	<ul>

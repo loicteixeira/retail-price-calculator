@@ -9,12 +9,11 @@ type ComputeResultsOptions = {
 	scenarios: Pick<Scenario, 'name' | 'baseListingPrice'>[];
 };
 
+export type ResultRow = { type: 'text' | 'number'; value: string; warning?: string | null };
+
 export type ComputeResultsOutput = {
 	columns: { label: string; children?: string[] }[];
-	groups: {
-		label: string;
-		rows: string[][];
-	}[];
+	groups: { label: string; rows: ResultRow[][] }[];
 };
 
 export function computeResults({
@@ -47,27 +46,45 @@ export function computeResults({
 				const itemsCount = buyCount + freeCount;
 				const itemsCost = productInformation.unitCost * itemsCount;
 				const net = listingPrice - itemsCost - calculatedFees.total;
-				const margin = net / listingPrice;
-				const breakEven =
+
+				let margin: number | null = net / listingPrice;
+				margin = isNaN(margin) || margin === -Infinity ? null : margin;
+
+				let breakEven: number | null =
 					Math.ceil((productInformation.orderCount * productInformation.unitCost) / net) *
 					itemsCount;
-
-				const netDisplay = formatCurrency(net, currencyCode) + conditionalWarning(net, 0);
-				const marginDisplay =
-					(margin === -Infinity ? '–' : formatPercent(margin)) + conditionalWarning(margin, 0);
-				const breakEvenDisplay =
-					(isNaN(breakEven) || breakEven === 0 ? '–' : breakEven.toString()) +
-					conditionalWarning(breakEven, 0, productInformation.orderCount);
+				breakEven = isNaN(breakEven) || breakEven === Infinity || breakEven <= 0 ? null : breakEven;
 
 				acc.push([
-					name,
-					formatCurrency(listingPrice, currencyCode),
-					...calculatedFees.details.map((v) => formatCurrency(v, currencyCode)),
-					formatCurrency(calculatedFees.total, currencyCode),
-					formatCurrency(itemsCost, currencyCode),
-					netDisplay,
-					marginDisplay,
-					breakEvenDisplay
+					{ type: 'text', value: name },
+					{ type: 'number', value: formatCurrency(listingPrice, currencyCode) },
+					...calculatedFees.details.map((v) => ({
+						type: 'number' as const,
+						value: formatCurrency(v, currencyCode)
+					})),
+					{ type: 'number', value: formatCurrency(calculatedFees.total, currencyCode) },
+					{ type: 'number', value: formatCurrency(itemsCost, currencyCode) },
+					{
+						type: 'number',
+						value: formatCurrency(net, currencyCode),
+						warning: net <= 0 ? 'Negative net, you are losing money with each sale!' : null
+					},
+					{
+						type: 'number',
+						value: margin !== null ? formatPercent(margin) : '–',
+						warning:
+							margin !== null && margin <= 0
+								? 'Negative margin, you are losing money with each sale!'
+								: null
+					},
+					{
+						type: 'number',
+						value: breakEven !== null ? breakEven.toString() : '–',
+						warning:
+							breakEven !== null && breakEven >= productInformation.orderCount
+								? 'It would take more sales than you have inventory to break even!'
+								: null
+					}
 				]);
 				return acc;
 			},
@@ -95,8 +112,4 @@ function computeFees(listingPrice: number, fees: ComputeResultsOptions['fees']) 
 function roundDownToNearest(value: number, rounding: NonNullable<Bundle['rounding']>) {
 	const rounded = Math.floor(value / rounding) * rounding;
 	return rounded === value ? rounded - rounding : rounded;
-}
-
-function conditionalWarning(value: number, min?: number, max?: number) {
-	return (min !== undefined && value <= min) || (max !== undefined && value >= max) ? ' ‼️' : '';
 }
