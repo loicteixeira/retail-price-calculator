@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Form from '$lib/components/Form';
-	import Results from '$lib/components/Results.svelte';
+	import Results from '$lib/components/Results/Results.svelte';
 	import { computeResults } from '$lib/compute';
 	import { downloadAsCSV } from '$lib/export';
 	import { getCurrencySymbol } from '$lib/i18n';
