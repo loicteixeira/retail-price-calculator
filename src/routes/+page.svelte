@@ -2,6 +2,7 @@
 	import * as Form from '$lib/components/Form';
 	import Results from '$lib/components/Results.svelte';
 	import { computeResults } from '$lib/compute';
+	import { downloadAsCSV } from '$lib/export';
 	import { getCurrencySymbol } from '$lib/i18n';
 
 	const form = Form.useState();
@@ -49,7 +50,11 @@
 
 			<div class="space-between flex flex-row flex-wrap gap-6">
 				<Form.SettingsFieldSet bind:currencyCode={form.state.currencyCode} />
-				<Form.ActionsFieldSet onClearData={form.onClearData} onLoadDemoData={form.onLoadDemoData} />
+				<Form.ActionsFieldSet
+					onClearData={form.onClearData}
+					onDownload={() => downloadAsCSV(results)}
+					onLoadDemoData={form.onLoadDemoData}
+				/>
 			</div>
 		</div>
 

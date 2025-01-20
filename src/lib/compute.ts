@@ -26,8 +26,8 @@ export function computeResults({
 	scenarios
 }: ComputeResultsOptions): ComputeResultsOutput | null {
 	const columns: ResultsColumn[] = [
-		{ id: 'scenario', label: 'Scenario' },
-		{ id: 'name', label: 'Name' },
+		{ id: 'scenario-name', label: 'Scenario Name' },
+		{ id: 'bundle-name', label: 'Bundle Name' },
 		{ id: 'listing', label: 'Listing Price' },
 		{
 			id: 'fees',

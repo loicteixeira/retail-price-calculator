@@ -55,6 +55,7 @@
 	<h3>Unreleased</h3>
 
 	<ul>
+		<li>Add CSV Export of the computed data.</li>
 		<li>Fix navigation display on small screens.</li>
 	</ul>
 
