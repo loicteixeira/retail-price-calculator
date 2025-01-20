@@ -11,7 +11,6 @@
 
 	let results = $derived(
 		computeResults({
-			currencyCode: form.state.currencyCode,
 			fees: form.state.fees,
 			salesOptions: [
 				{
@@ -72,6 +71,10 @@
 	</form>
 
 	{#if results}
-		<Results columns={results.columns} groups={results.groups} />
+		<Results
+			columns={results.columns}
+			currencyCode={form.state.currencyCode}
+			groups={results.groups}
+		/>
 	{/if}
 </div>

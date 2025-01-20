@@ -1,8 +1,6 @@
-import { formatCurrency, formatPercent } from './i18n';
-import type { Bundle, CurrencyCode, Fee, Scenario } from './types';
+import type { Bundle, Fee, Scenario } from './types';
 
 type ComputeResultsOptions = {
-	currencyCode: CurrencyCode;
 	fees: Pick<Fee, 'amount' | 'name' | 'type'>[];
 	productInformation: { orderCount: number; unitCost: number };
 	salesOptions: Pick<Bundle, 'buyCount' | 'freeCount' | 'name' | 'rounding'>[];
@@ -11,7 +9,11 @@ type ComputeResultsOptions = {
 
 type ResultsBaseColumn = { id: string; label: string };
 export type ResultsColumn = ResultsBaseColumn & { children?: ResultsBaseColumn[] };
-export type ResultsRow = { type: 'text' | 'number'; value: string; warning?: string | null };
+export type ResultsRow = {
+	type: 'currency' | 'number' | 'percent' | 'text';
+	value: string | number | null;
+	warning?: string | null;
+};
 
 export type ComputeResultsOutput = {
 	columns: ResultsColumn[];
@@ -19,7 +21,6 @@ export type ComputeResultsOutput = {
 };
 
 export function computeResults({
-	currencyCode,
 	fees,
 	productInformation,
 	salesOptions,
@@ -64,23 +65,22 @@ export function computeResults({
 					itemsCount;
 				breakEven = isNaN(breakEven) || breakEven === Infinity || breakEven <= 0 ? null : breakEven;
 
+				// TODO: Fix rounding
+
 				acc.push([
 					{ type: 'text', value: name },
-					{ type: 'number', value: formatCurrency(listingPrice, currencyCode) },
-					...calculatedFees.details.map((v) => ({
-						type: 'number' as const,
-						value: formatCurrency(v, currencyCode)
-					})),
-					{ type: 'number', value: formatCurrency(calculatedFees.total, currencyCode) },
-					{ type: 'number', value: formatCurrency(itemsCost, currencyCode) },
+					{ type: 'currency', value: listingPrice },
+					...calculatedFees.details.map((v) => ({ type: 'currency' as const, value: v })),
+					{ type: 'currency', value: calculatedFees.total },
+					{ type: 'currency', value: itemsCost },
 					{
-						type: 'number',
-						value: formatCurrency(net, currencyCode),
+						type: 'currency',
+						value: net,
 						warning: net <= 0 ? 'Negative net, you are losing money with each sale!' : null
 					},
 					{
-						type: 'number',
-						value: margin !== null ? formatPercent(margin) : '–',
+						type: 'percent',
+						value: margin,
 						warning:
 							margin !== null && margin <= 0
 								? 'Negative margin, you are losing money with each sale!'
@@ -88,7 +88,7 @@ export function computeResults({
 					},
 					{
 						type: 'number',
-						value: breakEven !== null ? breakEven.toString() : '–',
+						value: breakEven,
 						warning:
 							breakEven !== null && breakEven >= productInformation.orderCount
 								? 'It would take more sales than you have inventory to break even!'

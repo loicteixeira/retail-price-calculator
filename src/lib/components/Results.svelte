@@ -1,7 +1,10 @@
 <script lang="ts">
 	import type { ComputeResultsOutput, ResultsRow } from '$lib/compute';
+	import type { CurrencyCode } from '$lib/types';
+	import ResultsCell from './ResultsCell.svelte';
 
-	let { columns, groups }: ComputeResultsOutput = $props();
+	type Props = ComputeResultsOutput & { currencyCode: CurrencyCode };
+	let { columns, currencyCode, groups }: Props = $props();
 	let columnIds = $derived(
 		columns.flatMap((column) => column.children?.map((child) => child.id) ?? column.id)
 	);
@@ -51,14 +54,21 @@
 						{group.label}
 					</td>
 					{#each group.rows[0] as { type, value, warning }, cellIndex}
-						{@render cell({ type, value, warning, odd: oddFirstRow, id: columnIds[cellIndex + 1] })}
+						<ResultsCell
+							{type}
+							{value}
+							{warning}
+							odd={oddFirstRow}
+							id={columnIds[cellIndex + 1]}
+							{currencyCode}
+						/>
 					{/each}
 				</tr>
 				{#each group.rows.slice(1) as row, rowIndex}
 					{@const evenRow = (oddGroup * group.rows.length + rowIndex) % 2 === 0}
 					<tr class={['border-inherit [&:not(:last-child)]:border-b', evenRow && 'bg-gray-100']}>
 						{#each row as { type, value, warning }, cellIndex}
-							{@render cell({ type, value, warning, id: columnIds[cellIndex + 1] })}
+							<ResultsCell {type} {value} {warning} id={columnIds[cellIndex + 1]} {currencyCode} />
 						{/each}
 					</tr>
 				{/each}
@@ -72,7 +82,7 @@
 		class={[
 			'break-normal',
 			'border-inherit px-4 py-3 [&:not(:last-child)]:border-e',
-			type === 'number' && 'text-right',
+			['currency', 'number', 'percent'].includes(type) && 'text-right',
 			odd && 'bg-gray-100',
 			id === 'fees' && 'text-rose-800',
 			id === 'fees-total' && 'font-bold text-rose-800',
