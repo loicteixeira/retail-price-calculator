@@ -51,6 +51,12 @@
 
 	<h2 id="changelog">Changelog</h2>
 
+	<h3>Unreleased</h3>
+
+	<ul>
+		<li>Fix navigation display on small screens.</li>
+	</ul>
+
 	<h3 id="2025-01-13"><time datetime="2025-01-13">January 13th 2025</time></h3>
 
 	<ul>

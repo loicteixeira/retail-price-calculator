@@ -8,9 +8,7 @@
 </script>
 
 <header class="mb-8 bg-gray-200">
-	<div
-		class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-12 px-4 sm:px-6 lg:px-8"
-	>
+	<div class="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between gap-4 p-4">
 		<div>
 			<a
 				class="flex items-center gap-3 rounded pe-1 text-teal-700 focus-visible:outline focus-visible:outline-teal-700 focus-visible:ring focus-visible:ring-teal-300 focus-visible:ring-opacity-50"
@@ -40,7 +38,7 @@
 		</div>
 
 		<div class="flex items-center">
-			<nav aria-label="Global" class="hidden md:block">
+			<nav aria-label="Global">
 				<ul class="text flex items-center gap-6">
 					{#each menuLinks as { path, text } (path)}
 						<li>
