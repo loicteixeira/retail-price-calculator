@@ -59,7 +59,7 @@
 		<li>Fix navigation display on small screens.</li>
 	</ul>
 
-	<h3 id="2025-01-13"><time datetime="2025-01-13">January 13th 2025</time></h3>
+	<h3 id="2025-01-13"><time datetime="2025-01-13">January 13<sup>th</sup> 2025</time></h3>
 
 	<ul>
 		<li>Rework warnings display and add a message on hover.</li>
@@ -67,7 +67,7 @@
 		<li>Highlight fees and net values in table.</li>
 	</ul>
 
-	<h3 id="2025-01-12"><time datetime="2025-01-12">January 12th 2025</time></h3>
+	<h3 id="2025-01-12"><time datetime="2025-01-12">January 12<sup>th</sup> 2025</time></h3>
 
 	<ul>
 		<li>
@@ -81,7 +81,7 @@
 		<li>Add link to feedback form and support.</li>
 	</ul>
 
-	<h3 id="2025-01-11"><time datetime="2025-01-11">January 11th 2025</time></h3>
+	<h3 id="2025-01-11"><time datetime="2025-01-11">January 11<sup>th</sup> 2025</time></h3>
 
 	<ul>
 		<li>Initial Release.</li>
