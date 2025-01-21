@@ -69,18 +69,18 @@ export function computeResults({
 
 				acc.push([
 					{ type: 'text', value: name },
-					{ type: 'currency', value: listingPrice },
-					...calculatedFees.details.map((v) => ({ type: 'currency' as const, value: v })),
-					{ type: 'currency', value: calculatedFees.total },
-					{ type: 'currency', value: itemsCost },
+					{ type: 'currency', value: round(listingPrice, 2) },
+					...calculatedFees.details.map((v) => ({ type: 'currency' as const, value: round(v, 2) })),
+					{ type: 'currency', value: round(calculatedFees.total, 2) },
+					{ type: 'currency', value: round(itemsCost, 2) },
 					{
 						type: 'currency',
-						value: net,
+						value: round(net, 2),
 						warning: net <= 0 ? 'Negative net, you are losing money with each sale!' : null
 					},
 					{
 						type: 'percent',
-						value: margin,
+						value: margin !== null ? round(margin, 2) : margin,
 						warning:
 							margin !== null && margin <= 0
 								? 'Negative margin, you are losing money with each sale!'
@@ -88,7 +88,7 @@ export function computeResults({
 					},
 					{
 						type: 'number',
-						value: breakEven,
+						value: breakEven !== null ? round(breakEven, 2) : breakEven,
 						warning:
 							breakEven !== null && breakEven >= productInformation.orderCount
 								? 'It would take more sales than you have inventory to break even!'
@@ -121,4 +121,9 @@ function computeFees(listingPrice: number, fees: ComputeResultsOptions['fees']) 
 function roundDownToNearest(value: number, rounding: NonNullable<Bundle['rounding']>) {
 	const rounded = Math.floor(value / rounding) * rounding;
 	return rounded === value ? rounded - rounding : rounded;
+}
+
+function round(value: number, precision: number) {
+	const factor = Math.pow(10, precision);
+	return Math.round(value * factor) / factor;
 }
