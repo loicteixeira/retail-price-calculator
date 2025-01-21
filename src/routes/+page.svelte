@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Form from '$lib/components/Form';
-	import Results from '$lib/components/Results/Results.svelte';
+	import ResultsTable from '$lib/components/Results/ResultsTable.svelte';
 	import { computeResults } from '$lib/compute';
 	import { downloadAsCSV } from '$lib/export';
 	import { getCurrencySymbol } from '$lib/i18n';
@@ -71,7 +71,7 @@
 	</form>
 
 	{#if results}
-		<Results
+		<ResultsTable
 			columns={results.columns}
 			currencyCode={form.state.currencyCode}
 			groups={results.groups}
