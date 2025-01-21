@@ -52,7 +52,7 @@
 
 	<h2 id="changelog">Changelog</h2>
 
-	<h3>Unreleased</h3>
+	<h3 id="2025-01-21"><time datetime="2025-01-21">January 21<sup>st</sup> 2025</time></h3>
 
 	<ul>
 		<li>Add CSV Export of the computed data.</li>
