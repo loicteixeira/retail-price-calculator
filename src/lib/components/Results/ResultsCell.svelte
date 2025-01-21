@@ -6,24 +6,25 @@
 	type Props = ResultsRow & { currencyCode: CurrencyCode; odd?: boolean; id: string };
 	let { currencyCode, id, odd, type, value, warning }: Props = $props();
 
-	let formattedValue: string | null | undefined;
-	switch (type) {
-		case 'number':
-		case 'text':
-			formattedValue = value?.toString();
-			break;
-		case 'currency':
-			formattedValue =
-				value && typeof value === 'number'
-					? formatCurrency(value, currencyCode)
-					: value?.toString();
-			break;
-		case 'percent':
-			formattedValue =
-				value && typeof value === 'number' ? formatPercent(value) : value?.toString();
-			break;
-	}
-	formattedValue ??= '–';
+	let formattedValue = $derived.by(() => {
+		let output;
+		switch (type) {
+			case 'number':
+			case 'text':
+				output = value?.toString();
+				break;
+			case 'currency':
+				output =
+					value && typeof value === 'number'
+						? formatCurrency(value, currencyCode)
+						: value?.toString();
+				break;
+			case 'percent':
+				output = value && typeof value === 'number' ? formatPercent(value) : value?.toString();
+				break;
+		}
+		return output ?? '–';
+	});
 </script>
 
 <td
