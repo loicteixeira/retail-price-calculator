@@ -1,21 +1,22 @@
 import data from '$lib/data';
 import type { FormState } from '$lib/types';
+import { useLocalStorage } from '$lib/useLocalStorage.svelte';
 
 export function useState() {
 	const startingData = structuredClone(data.demo);
-	let state = $state<FormState>(startingData);
+	const storage = useLocalStorage<FormState>('calculator-state', startingData);
 
 	function onClearData() {
-		state = structuredClone(data.empty);
+		storage.value = structuredClone(data.empty);
 	}
 
 	function onLoadDemoData() {
-		state = structuredClone(data.demo);
+		storage.value = structuredClone(data.demo);
 	}
 
 	return {
 		get state() {
-			return state;
+			return storage.value;
 		},
 		onClearData,
 		onLoadDemoData

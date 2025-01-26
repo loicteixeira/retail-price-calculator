@@ -27,6 +27,12 @@
 		an account or log in to use it.
 	</p>
 
+	<p>
+		However, the data is saved in your browser's local storage so you won't have to set everything
+		up again the next time you use the calculator. If you wish to delete the data, either click the
+		"Clear Calculator" action or clear your browser storage.
+	</p>
+
 	<h3 id="share-feedback">How can I share feedback?</h3>
 
 	<p>
@@ -51,6 +57,12 @@
 	</p>
 
 	<h2 id="changelog">Changelog</h2>
+
+	<h3 id="2025-01-26"><time datetime="2025-01-26">January 26<sup>th</sup> 2025</time></h3>
+
+	<ul>
+		<li>Remember calculator state between visits and when changing pages.</li>
+	</ul>
 
 	<h3 id="2025-01-21"><time datetime="2025-01-21">January 21<sup>st</sup> 2025</time></h3>
 
