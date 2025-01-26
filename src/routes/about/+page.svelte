@@ -1,3 +1,7 @@
+<script lang="ts">
+	import H from '$lib/components/Atoms/AnchoredHeading.svelte';
+</script>
+
 <svelte:head>
 	<title>About – Retail Price Calculator</title>
 	<meta
@@ -7,7 +11,7 @@
 </svelte:head>
 
 <div class="prose mx-auto mb-8 px-4 sm:px-6 lg:px-8">
-	<h1 id="about">About</h1>
+	<H level={1} id="about">About</H>
 
 	<p>
 		<span class="text-teal-700">Retail Price Calculator</span> is an
@@ -17,9 +21,9 @@
 		bundles options and various fees.
 	</p>
 
-	<h2 id="faq">Frequently Asked Questions</h2>
+	<H level={2} id="faq">Frequently Asked Questions</H>
 
-	<h3 id="data-privacy">Is my data safe?</h3>
+	<H level={3} id="data-privacy">Is my data safe?</H>
 
 	<p>
 		The values you enter in the calculator are never uploaded to any server;<br />Your personal data
@@ -33,16 +37,16 @@
 		"Clear Calculator" action or clear your browser storage.
 	</p>
 
-	<h3 id="share-feedback">How can I share feedback?</h3>
+	<H level={3} id="share-feedback">How can I share feedback?</H>
 
 	<p>
 		Please use this <a href="https://forms.gle/xrsSzuvchw26hppBA" target="_blank">Google Form</a>
 		for bug reports and feature requests.
 	</p>
 
-	<h3 id="support">
+	<H level={3} id="support">
 		How can I support this project and your other dev projects aimed at helping indie businesses?
-	</h3>
+	</H>
 
 	<p>
 		Thank you for wanting to support my work! If you'd like to leave a tip, you can do so through my
@@ -56,23 +60,29 @@
 		help you make sense of your sales on Etsy.
 	</p>
 
-	<h2 id="changelog">Changelog</h2>
+	<H level={2} id="changelog">Changelog</H>
 
-	<h3 id="2025-01-26"><time datetime="2025-01-26">January 26<sup>th</sup> 2025</time></h3>
+	<H level={3} id="2025-01-26">
+		<time datetime="2025-01-26">January 26<sup>th</sup> 2025</time>
+	</H>
 
 	<ul>
 		<li>Remember calculator state between visits and when changing pages.</li>
 		<li>Fix accessibility labelling of form fields.</li>
 	</ul>
 
-	<h3 id="2025-01-21"><time datetime="2025-01-21">January 21<sup>st</sup> 2025</time></h3>
+	<H level={3} id="2025-01-21">
+		<time datetime="2025-01-21">January 21<sup>st</sup> 2025</time>
+	</H>
 
 	<ul>
 		<li>Add CSV Export of the computed data.</li>
 		<li>Fix navigation display on small screens.</li>
 	</ul>
 
-	<h3 id="2025-01-13"><time datetime="2025-01-13">January 13<sup>th</sup> 2025</time></h3>
+	<H level={3} id="2025-01-13">
+		<time datetime="2025-01-13">January 13<sup>th</sup> 2025</time>
+	</H>
 
 	<ul>
 		<li>Rework warnings display and add a message on hover.</li>
@@ -80,7 +90,9 @@
 		<li>Highlight fees and net values in table.</li>
 	</ul>
 
-	<h3 id="2025-01-12"><time datetime="2025-01-12">January 12<sup>th</sup> 2025</time></h3>
+	<H level={3} id="2025-01-12">
+		<time datetime="2025-01-12">January 12<sup>th</sup> 2025</time>
+	</H>
 
 	<ul>
 		<li>
@@ -94,7 +106,9 @@
 		<li>Add link to feedback form and support.</li>
 	</ul>
 
-	<h3 id="2025-01-11"><time datetime="2025-01-11">January 11<sup>th</sup> 2025</time></h3>
+	<H level={3} id="2025-01-11">
+		<time datetime="2025-01-11">January 11<sup>th</sup> 2025</time>
+	</H>
 
 	<ul>
 		<li>Initial Release.</li>
