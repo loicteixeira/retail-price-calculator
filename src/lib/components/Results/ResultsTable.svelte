@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ComputeResultsOutput, ResultsRow } from '$lib/compute';
+	import type { ComputeResultsOutput } from '$lib/compute';
 	import type { CurrencyCode } from '$lib/types';
 	import ResultsCell from './ResultsCell.svelte';
 
@@ -76,24 +76,3 @@
 		</tbody>
 	</table>
 </div>
-
-{#snippet cell({ id, odd, type, value, warning }: ResultsRow & { odd?: boolean; id: string })}
-	<td
-		class={[
-			'break-normal',
-			'border-inherit px-4 py-3 [&:not(:last-child)]:border-e',
-			['currency', 'number', 'percent'].includes(type) && 'text-right',
-			odd && 'bg-gray-100',
-			id === 'fees' && 'text-rose-800',
-			id === 'fees-total' && 'font-bold text-rose-800',
-			id === 'net' && 'font-bold text-emerald-800'
-		]}
-	>
-		<span
-			class={[warning && 'cursor-help underline decoration-red-600 decoration-wavy decoration-2']}
-			title={warning ? warning : ''}
-		>
-			{value}
-		</span>
-	</td>
-{/snippet}
