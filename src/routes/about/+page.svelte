@@ -62,6 +62,7 @@
 
 	<ul>
 		<li>Remember calculator state between visits and when changing pages.</li>
+		<li>Fix accessibility labelling of form fields.</li>
 	</ul>
 
 	<h3 id="2025-01-21"><time datetime="2025-01-21">January 21<sup>st</sup> 2025</time></h3>

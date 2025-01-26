@@ -27,20 +27,25 @@
 	<table class="mr-auto table-fixed">
 		<thead>
 			<tr class="h-[2.3rem] text-left align-text-top uppercase text-gray-700">
-				<th class="w-3/5 px-2">Name</th>
-				<th class="w-1/5 px-2">Amount</th>
-				<th class="w-1/5 px-2" colspan="2">Type</th>
+				<th class="w-3/5 px-2" id="fee-name">Name</th>
+				<th class="w-1/5 px-2" id="fee-amount">Amount</th>
+				<th class="w-1/5 px-2" colspan="2" id="fee-type">Type</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each fees as fee, index (fee.key)}
 				<tr>
 					<td class="px-2 py-1.5">
-						<Input aria-label="Name" id="fee-{fee.key}-name" type="text" bind:value={fee.name} />
+						<Input
+							aria-labelledby="fee-name"
+							id="fee-{fee.key}-name"
+							type="text"
+							bind:value={fee.name}
+						/>
 					</td>
 					<td class="px-2 py-1.5">
 						<Input
-							aria-label="Amount"
+							aria-labelledby="fee-amount"
 							id="fee-{fee.key}-amount"
 							type="number"
 							bind:value={fee.amount}
@@ -48,7 +53,7 @@
 					</td>
 					<td class="px-2 py-1.5">
 						<select
-							aria-label="type"
+							aria-labelledby="fee-type"
 							class="mt-1 block rounded border-gray-300 focus:border-teal-700 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
 							id="fee-{fee.key}-type"
 						>
@@ -57,7 +62,7 @@
 						</select>
 					</td>
 					<td class="py-1.5">
-						<Button onclick={() => removeFee(index)}>
+						<Button title="Delete fee #{index + 1} ({fee.name})" onclick={() => removeFee(index)}>
 							<span class="text-xs" aria-hidden="true">╳</span>
 						</Button>
 					</td>

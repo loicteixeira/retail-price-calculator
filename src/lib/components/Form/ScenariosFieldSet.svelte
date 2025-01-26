@@ -43,8 +43,10 @@
 	<table class="mr-auto table-fixed">
 		<thead>
 			<tr class="text-left align-text-top uppercase text-gray-700">
-				<th class="w-3/5 px-2">Name</th>
-				<th colspan="2" class="w-2/5 px-2 leading-none">Listing Price</th>
+				<th class="w-3/5 px-2" id="scenario-name">Name</th>
+				<th colspan="2" class="w-2/5 px-2 leading-none" id="scenario-listing-price">
+					Listing Price
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -52,7 +54,7 @@
 				<tr>
 					<td class="px-2 py-1.5">
 						<Input
-							aria-label="Name"
+							aria-labelledby="scenario-name"
 							id="scenario-{scenario.key}-name"
 							type="text"
 							bind:value={scenario.name}
@@ -60,7 +62,7 @@
 					</td>
 					<td class="px-2 py-1.5">
 						<Input
-							aria-label="Listing Price"
+							aria-labelledby="scenario-listing-price"
 							icon={currencySymbol}
 							id="scenario-{scenario.key}-baseListingPrice"
 							min="0"

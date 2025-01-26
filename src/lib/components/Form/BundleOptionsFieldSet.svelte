@@ -27,10 +27,16 @@
 	<table class="mr-auto table-fixed">
 		<thead>
 			<tr class="text-left align-text-top uppercase text-gray-700">
-				<th class="w-3/6 px-2">Name</th>
-				<th class="w-1/6 px-2">Buy</th>
-				<th class="w-1/6 px-2">Free</th>
-				<th colspan="2" class="w-1/6 px-2 leading-none">
+				<th class="w-3/6 px-2" id="bundle-name">Name</th>
+				<th class="w-1/6 px-2 leading-none" id="bundle-buy-count">
+					Buy<br />
+					<span class="text-[.4em]">count</span>
+				</th>
+				<th class="w-1/6 px-2 leading-none" id="bundle-free-count">
+					Free<br />
+					<span class="text-[.4em]">count</span>
+				</th>
+				<th colspan="2" class="w-1/6 px-2 leading-none" id="bundle-rounding">
 					Rounding<br />
 					<span class="text-[.4em]">down to nearest</span>
 				</th>
@@ -41,7 +47,7 @@
 				<tr>
 					<td class="px-2 py-1.5">
 						<Input
-							aria-label="Name"
+							aria-labelledby="bundle-name"
 							id="bundle-{bundle.key}-name"
 							type="text"
 							bind:value={bundle.name}
@@ -49,7 +55,7 @@
 					</td>
 					<td class="px-2 py-1.5">
 						<Input
-							aria-label="Buy"
+							aria-labelledby="bundle-buy-count"
 							id="bundle-{bundle.key}-buyCount"
 							min="0"
 							step="1"
@@ -59,7 +65,7 @@
 					</td>
 					<td class="px-2 py-1.5">
 						<Input
-							aria-label="Free"
+							aria-labelledby="bundle-free-count"
 							id="bundle-{bundle.key}-freeCount"
 							min="0"
 							step="1"
@@ -69,12 +75,12 @@
 					</td>
 					<td class="px-2 py-1.5">
 						<select
-							aria-label="Rounding Down To Nearest"
+							aria-labelledby="bundle-rounding"
 							class="mt-1 block w-20 rounded border-gray-300 focus:border-teal-700 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
 							id="bundle-{bundle.key}-rounding"
 							bind:value={bundle.rounding}
 						>
-							<option value={null}></option>
+							<option value={null} aria-label="None"></option>
 							<option value={0.1}>0.1</option>
 							<option value={1}>1</option>
 							<option value={2}>2</option>
@@ -83,7 +89,10 @@
 						</select></td
 					>
 					<td class="py-1.5">
-						<Button title="Delete bundle '{bundle.name}'" onclick={() => removeBundle(index)}>
+						<Button
+							title="Delete bundle #{index + 1} ({bundle.name})"
+							onclick={() => removeBundle(index)}
+						>
 							<span class="text-xs" aria-hidden="true">╳</span>
 						</Button>
 					</td>
