@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import * as Form from '$lib/components/Form';
 	import ResultsTable from '$lib/components/Results/ResultsTable.svelte';
 	import { computeResults } from '$lib/compute';
@@ -38,43 +39,45 @@
 	/>
 </svelte:head>
 
-<div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-	<form class="my-8 flex flex-col gap-6" novalidate>
-		<div class="flex flex-row flex-wrap justify-between gap-6">
-			<Form.ProductInfoFieldSet
-				{currencySymbol}
-				bind:orderCount={form.state.orderCount}
-				bind:unitCost={form.state.unitCost}
-			/>
-
-			<div class="space-between flex flex-row flex-wrap gap-6">
-				<Form.SettingsFieldSet bind:currencyCode={form.state.currencyCode} />
-				<Form.ActionsFieldSet
-					onClearData={form.onClearData}
-					onDownload={() => downloadAsCSV(results)}
-					onLoadDemoData={form.onLoadDemoData}
+{#if browser}
+	<div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+		<form class="my-8 flex flex-col gap-6" novalidate>
+			<div class="flex flex-row flex-wrap justify-between gap-6">
+				<Form.ProductInfoFieldSet
+					{currencySymbol}
+					bind:orderCount={form.state.orderCount}
+					bind:unitCost={form.state.unitCost}
 				/>
+
+				<div class="space-between flex flex-row flex-wrap gap-6">
+					<Form.SettingsFieldSet bind:currencyCode={form.state.currencyCode} />
+					<Form.ActionsFieldSet
+						onClearData={form.onClearData}
+						onDownload={() => downloadAsCSV(results)}
+						onLoadDemoData={form.onLoadDemoData}
+					/>
+				</div>
 			</div>
-		</div>
 
-		<div class="grid-warp grid grid-cols-[repeat(auto-fit,_minmax(150px,auto))] gap-6">
-			<Form.ScenariosFieldSet
-				class="col-span-2"
+			<div class="grid-warp grid grid-cols-[repeat(auto-fit,_minmax(150px,auto))] gap-6">
+				<Form.ScenariosFieldSet
+					class="col-span-2"
+					currencyCode={form.state.currencyCode}
+					{currencySymbol}
+					unitCost={form.state.unitCost}
+					bind:scenarios={form.state.scenarios}
+				/>
+				<Form.BundleOptionsFieldSet class="col-span-3" bind:bundles={form.state.bundles} />
+				<Form.FeesFieldSet class="col-span-3" {currencySymbol} bind:fees={form.state.fees} />
+			</div>
+		</form>
+
+		{#if results}
+			<ResultsTable
+				columns={results.columns}
 				currencyCode={form.state.currencyCode}
-				{currencySymbol}
-				unitCost={form.state.unitCost}
-				bind:scenarios={form.state.scenarios}
+				groups={results.groups}
 			/>
-			<Form.BundleOptionsFieldSet class="col-span-3" bind:bundles={form.state.bundles} />
-			<Form.FeesFieldSet class="col-span-3" {currencySymbol} bind:fees={form.state.fees} />
-		</div>
-	</form>
-
-	{#if results}
-		<ResultsTable
-			columns={results.columns}
-			currencyCode={form.state.currencyCode}
-			groups={results.groups}
-		/>
-	{/if}
-</div>
+		{/if}
+	</div>
+{/if}
