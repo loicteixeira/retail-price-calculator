@@ -56,9 +56,10 @@
 							aria-labelledby="fee-type"
 							class="mt-1 block rounded border-gray-300 focus:border-teal-700 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
 							id="fee-{fee.key}-type"
+							bind:value={fee.type}
 						>
-							<option selected={fee.type == 'flat'}>{currencySymbol}</option>
-							<option selected={fee.type == 'percent'}>%</option>
+							<option value="flat" selected={fee.type == 'flat'}>{currencySymbol}</option>
+							<option value="percent" selected={fee.type == 'percent'}>%</option>
 						</select>
 					</td>
 					<td class="py-1.5">
