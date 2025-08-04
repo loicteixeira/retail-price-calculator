@@ -15,34 +15,6 @@ const demo: FormState = {
 			key: crypto.randomUUID(),
 			name: '2+1',
 			rounding: null
-		},
-		{
-			buyCount: 3,
-			freeCount: 0,
-			key: crypto.randomUUID(),
-			name: '3 discounted',
-			rounding: 5
-		},
-		{
-			buyCount: 3,
-			freeCount: 1,
-			key: crypto.randomUUID(),
-			name: '3+1',
-			rounding: null
-		},
-		{
-			buyCount: 4,
-			freeCount: 0,
-			key: crypto.randomUUID(),
-			name: '4 discounted',
-			rounding: 10
-		},
-		{
-			buyCount: 4,
-			freeCount: 1,
-			key: crypto.randomUUID(),
-			name: '4+1',
-			rounding: null
 		}
 	],
 	currencyCode: 'EUR',
