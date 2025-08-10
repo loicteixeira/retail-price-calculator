@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { ComputeResultsOutput } from '$lib/compute';
+	import type { ComputeGroupedResultsOutput } from '$lib/compute';
 	import type { CurrencyCode } from '$lib/types';
-	import ResultsCell from './ResultsCell.svelte';
+	import ResultsCell from '../Shared/Results/ResultsCell.svelte';
 
-	type Props = ComputeResultsOutput & { currencyCode: CurrencyCode };
+	type Props = ComputeGroupedResultsOutput & { currencyCode: CurrencyCode };
 	let { columns, currencyCode, groups }: Props = $props();
 	let columnIds = $derived(
 		columns.flatMap((column) => column.children?.map((child) => child.id) ?? column.id)

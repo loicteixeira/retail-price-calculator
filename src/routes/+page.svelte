@@ -6,8 +6,8 @@
 				href="/retail"
 				class="text-gray-800 underline decoration-teal-700 decoration-2 underline-offset-2 transition hover:text-teal-700 hover:underline"
 				>Retail</a
-			>, to help you decide how to price your retail products, taking into account a base price,
-			bundles options and various fees.
+			>, to help you decide how to price your products, taking into account a base price, bundles
+			options and various fees.
 		</li>
 		<li>
 			<a

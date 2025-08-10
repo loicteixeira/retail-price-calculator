@@ -1,4 +1,4 @@
-import type { RetailFormState } from './types';
+import type { RetailFormState, ReverseFormState } from './types';
 
 const retailDemo: RetailFormState = {
 	bundles: [
@@ -67,4 +67,23 @@ const retailEmpty: RetailFormState = {
 	unitCost: null
 };
 
-export default { retailDemo, retailEmpty };
+const reverseDemo: ReverseFormState = {
+	currencyCode: 'EUR',
+	fees: [
+		{
+			amount: 13.7,
+			key: crypto.randomUUID(),
+			name: 'Taxes',
+			type: 'percent'
+		}
+	],
+	salePrice: 100
+};
+
+const reverseEmpty: ReverseFormState = {
+	currencyCode: 'EUR',
+	fees: [],
+	salePrice: null
+};
+
+export default { retailDemo, retailEmpty, reverseDemo, reverseEmpty };

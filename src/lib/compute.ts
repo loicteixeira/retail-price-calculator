@@ -1,10 +1,15 @@
-import type { RetailBundle, RetailFee, RetailScenario } from './types';
+import type { RetailBundle, Fee, RetailScenario } from './types';
 
-type ComputeResultsOptions = {
-	fees: Pick<RetailFee, 'amount' | 'name' | 'type'>[];
+type ComputeRetailResultsOptions = {
+	fees: Pick<Fee, 'amount' | 'name' | 'type'>[];
 	productInformation: { orderCount: number; unitCost: number };
 	salesOptions: Pick<RetailBundle, 'buyCount' | 'freeCount' | 'name' | 'rounding'>[];
 	scenarios: Pick<RetailScenario, 'name' | 'baseListingPrice'>[];
+};
+
+type ComputeReverseResultsOptions = {
+	fees: Pick<Fee, 'amount' | 'name' | 'type'>[];
+	salePrice: number | null;
 };
 
 type ResultsBaseColumn = { id: string; label: string };
@@ -15,24 +20,29 @@ export type ResultsRow = {
 	warning?: string | null;
 };
 
-export type ComputeResultsOutput = {
+export type ComputeFlatResultsOutput = {
+	columns: ResultsColumn[];
+	rows: ResultsRow[][];
+};
+
+export type ComputeGroupedResultsOutput = {
 	columns: ResultsColumn[];
 	groups: { label: string; rows: ResultsRow[][] }[];
 };
 
-export function computeResults({
+export function computeRetailResults({
 	fees,
 	productInformation,
 	salesOptions,
 	scenarios
-}: ComputeResultsOptions): ComputeResultsOutput | null {
+}: ComputeRetailResultsOptions): ComputeGroupedResultsOutput | null {
 	const columns: ResultsColumn[] = [
 		{ id: 'scenario-name', label: 'Scenario Name' },
 		{ id: 'bundle-name', label: 'RetailBundle Name' },
 		{ id: 'listing', label: 'Listing Price' },
 		{
 			id: 'fees',
-			label: 'RetailFees',
+			label: 'Fees',
 			children: [
 				...fees.map((fee) => ({ id: 'fees', label: fee.name })),
 				{ id: 'fees-total', label: 'Total' }
@@ -45,7 +55,7 @@ export function computeResults({
 	];
 
 	const groups = scenarios.map((scenario) => {
-		const rows = salesOptions.reduce<ComputeResultsOutput['groups'][0]['rows']>(
+		const rows = salesOptions.reduce<ComputeGroupedResultsOutput['groups'][0]['rows']>(
 			(acc, { buyCount, freeCount, name, rounding }) => {
 				let listingPrice = scenario.baseListingPrice * buyCount;
 				if (rounding) {
@@ -64,8 +74,6 @@ export function computeResults({
 					Math.ceil((productInformation.orderCount * productInformation.unitCost) / net) *
 					itemsCount;
 				breakEven = isNaN(breakEven) || breakEven === Infinity || breakEven <= 0 ? null : breakEven;
-
-				// TODO: Fix rounding
 
 				acc.push([
 					{ type: 'text', value: name },
@@ -105,7 +113,54 @@ export function computeResults({
 	return groups.length !== 0 ? { columns, groups } : null;
 }
 
-function computeFees(listingPrice: number, fees: ComputeResultsOptions['fees']) {
+export function computeReverseResults({
+	fees,
+	salePrice
+}: ComputeReverseResultsOptions): ComputeFlatResultsOutput | null {
+	if (salePrice === null || fees.length === 0) {
+		return null;
+	}
+
+	const columns: ResultsColumn[] = [
+		{ id: 'sale-price', label: 'Sale Price' },
+		{
+			id: 'fees',
+			label: 'Fees',
+			children: [
+				...fees.map((fee) => ({ id: 'fees', label: fee.name })),
+				{ id: 'fees-total', label: 'Total' }
+			]
+		},
+		{ id: 'net', label: 'Net' }
+	];
+
+	const calculatedFees = computeFees(salePrice, fees);
+	const net = salePrice - calculatedFees.total;
+
+	return {
+		columns,
+		rows: [
+			[
+				{ type: 'currency', value: round(salePrice, 2) },
+				...calculatedFees.details.map((v) => ({
+					type: 'currency' as const,
+					value: round(v, 2)
+				})),
+				{ type: 'currency', value: round(calculatedFees.total, 2) },
+				{
+					type: 'currency',
+					value: round(net, 2),
+					warning: net <= 0 ? 'Negative net, you are losing money!' : null
+				}
+			]
+		]
+	};
+}
+
+function computeFees(
+	listingPrice: number,
+	fees: ComputeRetailResultsOptions['fees'] | ComputeReverseResultsOptions['fees']
+) {
 	const details = fees.map((fee) => {
 		switch (fee.type) {
 			case 'flat':

@@ -10,7 +10,7 @@ export type RetailBundle = {
 
 export type CurrencyCode = (typeof CURRENCY_CODES)[number];
 
-export type RetailFee = {
+export type Fee = {
 	amount: number;
 	key: string;
 	name: string;
@@ -26,8 +26,14 @@ export type RetailScenario = {
 export type RetailFormState = {
 	bundles: RetailBundle[];
 	currencyCode: CurrencyCode;
-	fees: RetailFee[];
+	fees: Fee[];
 	orderCount: number | null;
 	scenarios: RetailScenario[];
 	unitCost: number | null;
+};
+
+export type ReverseFormState = {
+	currencyCode: CurrencyCode;
+	salePrice: number | null;
+	fees: Fee[];
 };

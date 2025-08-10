@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import * as RetailForm from '$lib/components/RetailCalculator/Form';
-	import ResultsTable from '$lib/components/RetailCalculator/Results/ResultsTable.svelte';
-	import { computeResults } from '$lib/compute';
+	import ResultsTable from '$lib/components/RetailCalculator/ResultsTable.svelte';
+	import { computeRetailResults } from '$lib/compute';
 	import { downloadAsCSV } from '$lib/export';
 	import { getCurrencySymbol } from '$lib/i18n';
 
@@ -11,7 +11,7 @@
 	let currencySymbol = $derived(getCurrencySymbol(form.state.currencyCode));
 
 	let results = $derived(
-		computeResults({
+		computeRetailResults({
 			fees: form.state.fees,
 			salesOptions: [
 				{
@@ -41,7 +41,7 @@
 
 {#if browser}
 	<div class="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-		<form class="my-8 flex flex-col gap-6" novalidate>
+		<form class="mb-12 flex flex-col gap-6" novalidate>
 			<div class="flex flex-row flex-wrap justify-between gap-6">
 				<RetailForm.ProductInfoFieldSet
 					{currencySymbol}
