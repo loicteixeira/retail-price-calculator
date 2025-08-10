@@ -62,6 +62,14 @@
 
 	<H level={2} id="changelog">Changelog</H>
 
+	<H level={3} id="2025-008-10">
+		<time datetime="2025-008-10">August 10<sup>th</sup> 2025</time>
+	</H>
+
+	<ul>
+		<li>Add a <a href="/reverse">reverse price calculator</a>.</li>
+	</ul>
+
 	<H level={3} id="2025-01-26">
 		<time datetime="2025-01-26">January 26<sup>th</sup> 2025</time>
 	</H>
