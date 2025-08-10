@@ -1,6 +1,6 @@
 import type { CURRENCY_CODES } from './currencies';
 
-export type Bundle = {
+export type RetailBundle = {
 	buyCount: number;
 	freeCount: number;
 	key: string;
@@ -10,24 +10,24 @@ export type Bundle = {
 
 export type CurrencyCode = (typeof CURRENCY_CODES)[number];
 
-export type Fee = {
+export type RetailFee = {
 	amount: number;
 	key: string;
 	name: string;
 	type: 'flat' | 'percent';
 };
 
-export type Scenario = {
+export type RetailScenario = {
 	baseListingPrice: number;
 	name: string;
 	key: string;
 };
 
-export type FormState = {
-	bundles: Bundle[];
+export type RetailFormState = {
+	bundles: RetailBundle[];
 	currencyCode: CurrencyCode;
-	fees: Fee[];
+	fees: RetailFee[];
 	orderCount: number | null;
-	scenarios: Scenario[];
+	scenarios: RetailScenario[];
 	unitCost: number | null;
 };

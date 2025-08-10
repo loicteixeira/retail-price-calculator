@@ -1,10 +1,10 @@
-import type { Bundle, Fee, Scenario } from './types';
+import type { RetailBundle, RetailFee, RetailScenario } from './types';
 
 type ComputeResultsOptions = {
-	fees: Pick<Fee, 'amount' | 'name' | 'type'>[];
+	fees: Pick<RetailFee, 'amount' | 'name' | 'type'>[];
 	productInformation: { orderCount: number; unitCost: number };
-	salesOptions: Pick<Bundle, 'buyCount' | 'freeCount' | 'name' | 'rounding'>[];
-	scenarios: Pick<Scenario, 'name' | 'baseListingPrice'>[];
+	salesOptions: Pick<RetailBundle, 'buyCount' | 'freeCount' | 'name' | 'rounding'>[];
+	scenarios: Pick<RetailScenario, 'name' | 'baseListingPrice'>[];
 };
 
 type ResultsBaseColumn = { id: string; label: string };
@@ -28,11 +28,11 @@ export function computeResults({
 }: ComputeResultsOptions): ComputeResultsOutput | null {
 	const columns: ResultsColumn[] = [
 		{ id: 'scenario-name', label: 'Scenario Name' },
-		{ id: 'bundle-name', label: 'Bundle Name' },
+		{ id: 'bundle-name', label: 'RetailBundle Name' },
 		{ id: 'listing', label: 'Listing Price' },
 		{
 			id: 'fees',
-			label: 'Fees',
+			label: 'RetailFees',
 			children: [
 				...fees.map((fee) => ({ id: 'fees', label: fee.name })),
 				{ id: 'fees-total', label: 'Total' }
@@ -118,7 +118,7 @@ function computeFees(listingPrice: number, fees: ComputeResultsOptions['fees']) 
 	return { details, total };
 }
 
-function roundDownToNearest(value: number, rounding: NonNullable<Bundle['rounding']>) {
+function roundDownToNearest(value: number, rounding: NonNullable<RetailBundle['rounding']>) {
 	const rounded = Math.floor(value / rounding) * rounding;
 	return rounded === value ? rounded - rounding : rounded;
 }

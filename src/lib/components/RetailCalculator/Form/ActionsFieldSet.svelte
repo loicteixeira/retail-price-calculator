@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Button from '../Atoms/Button.svelte';
-	import FieldSet from '../Atoms/FieldSet.svelte';
+	import Button from '../../Atoms/Button.svelte';
+	import FieldSet from '../../Atoms/FieldSet.svelte';
 
 	type Props = {
 		onClearData: () => void;

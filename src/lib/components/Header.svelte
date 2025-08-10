@@ -2,7 +2,8 @@
 	import { page } from '$app/state';
 
 	const menuLinks = [
-		{ path: '/', text: 'Home' },
+		{ path: '/retail', text: 'Retail' },
+		{ path: '/reverse', text: 'Reverse' },
 		{ path: '/about', text: 'About' }
 	];
 </script>

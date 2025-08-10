@@ -1,6 +1,6 @@
-import type { FormState } from './types';
+import type { RetailFormState } from './types';
 
-const demo: FormState = {
+const retailDemo: RetailFormState = {
 	bundles: [
 		{
 			buyCount: 2,
@@ -58,7 +58,7 @@ const demo: FormState = {
 	unitCost: 3.5
 };
 
-const empty: FormState = {
+const retailEmpty: RetailFormState = {
 	bundles: [],
 	currencyCode: 'EUR',
 	fees: [],
@@ -67,4 +67,4 @@ const empty: FormState = {
 	unitCost: null
 };
 
-export default { demo, empty };
+export default { retailDemo, retailEmpty };

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { formatCurrency } from '$lib/i18n';
-	import type { FormState } from '$lib/types';
+	import type { RetailFormState } from '$lib/types';
 	import type { HTMLFieldsetAttributes } from 'svelte/elements';
-	import Button from '../Atoms/Button.svelte';
-	import FieldSet from '../Atoms/FieldSet.svelte';
-	import Input from '../Atoms/Input.svelte';
+	import Button from '../../Atoms/Button.svelte';
+	import FieldSet from '../../Atoms/FieldSet.svelte';
+	import Input from '../../Atoms/Input.svelte';
 
-	type Props = Pick<FormState, 'currencyCode' | 'unitCost' | 'scenarios'> &
+	type Props = Pick<RetailFormState, 'currencyCode' | 'unitCost' | 'scenarios'> &
 		Pick<HTMLFieldsetAttributes, 'class'> & {
 			currencySymbol: string;
 		};

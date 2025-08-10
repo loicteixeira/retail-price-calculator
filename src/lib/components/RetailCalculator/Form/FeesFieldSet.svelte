@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { FormState } from '$lib/types';
+	import type { RetailFormState } from '$lib/types';
 	import type { HTMLFieldsetAttributes } from 'svelte/elements';
-	import Button from '../Atoms/Button.svelte';
-	import FieldSet from '../Atoms/FieldSet.svelte';
-	import Input from '../Atoms/Input.svelte';
+	import Button from '../../Atoms/Button.svelte';
+	import FieldSet from '../../Atoms/FieldSet.svelte';
+	import Input from '../../Atoms/Input.svelte';
 
-	type Props = Pick<FormState, 'fees'> &
+	type Props = Pick<RetailFormState, 'fees'> &
 		Pick<HTMLFieldsetAttributes, 'class'> & { currencySymbol: string };
 	let { currencySymbol, fees = $bindable(), class: extraClass }: Props = $props();
 

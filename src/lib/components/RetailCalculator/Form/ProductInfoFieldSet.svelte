@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { FormState } from '$lib/types';
-	import FieldSet from '../Atoms/FieldSet.svelte';
-	import Input from '../Atoms/Input.svelte';
+	import type { RetailFormState } from '$lib/types';
+	import FieldSet from '../../Atoms/FieldSet.svelte';
+	import Input from '../../Atoms/Input.svelte';
 
-	type Props = Pick<FormState, 'orderCount' | 'unitCost'> & { currencySymbol: string };
+	type Props = Pick<RetailFormState, 'orderCount' | 'unitCost'> & { currencySymbol: string };
 	let { currencySymbol, orderCount = $bindable(), unitCost = $bindable() }: Props = $props();
 </script>
 

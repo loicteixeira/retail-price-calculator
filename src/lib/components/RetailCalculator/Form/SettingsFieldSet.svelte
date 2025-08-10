@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { CURRENCY_CODES } from '$lib/currencies';
-	import type { FormState } from '$lib/types';
-	import FieldSet from '../Atoms/FieldSet.svelte';
+	import type { RetailFormState } from '$lib/types';
+	import FieldSet from '../../Atoms/FieldSet.svelte';
 
-	type Props = Pick<FormState, 'currencyCode'>;
+	type Props = Pick<RetailFormState, 'currencyCode'>;
 	let { currencyCode = $bindable() }: Props = $props();
 </script>
 

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { FormState } from '$lib/types';
+	import type { RetailFormState } from '$lib/types';
 	import type { HTMLFieldsetAttributes } from 'svelte/elements';
-	import Button from '../Atoms/Button.svelte';
-	import FieldSet from '../Atoms/FieldSet.svelte';
-	import Input from '../Atoms/Input.svelte';
+	import Button from '../../Atoms/Button.svelte';
+	import FieldSet from '../../Atoms/FieldSet.svelte';
+	import Input from '../../Atoms/Input.svelte';
 
-	type Props = Pick<FormState, 'bundles'> & Pick<HTMLFieldsetAttributes, 'class'>;
+	type Props = Pick<RetailFormState, 'bundles'> & Pick<HTMLFieldsetAttributes, 'class'>;
 	let { bundles = $bindable(), class: extraClass }: Props = $props();
 
 	function addBundle() {
