@@ -42,8 +42,15 @@
 		<tbody class="border-inherit">
 			{#each rows as row}
 				<tr class="border-b border-inherit">
-					{#each row as { type, value, warning }, cellIndex}
-						<ResultsCell {type} {value} {warning} id={columnIds[cellIndex + 1]} {currencyCode} />
+					{#each row as { extra, type, value, warning }, cellIndex}
+						<ResultsCell
+							{extra}
+							{type}
+							{value}
+							{warning}
+							id={columnIds[cellIndex + 1]}
+							{currencyCode}
+						/>
 					{/each}
 				</tr>
 			{/each}

@@ -4,7 +4,7 @@
 	import type { CurrencyCode } from '$lib/types';
 
 	type Props = ResultsRow & { currencyCode: CurrencyCode; odd?: boolean; id: string };
-	let { currencyCode, id, odd, type, value, warning }: Props = $props();
+	let { currencyCode, extra, id, odd, type, value, warning }: Props = $props();
 
 	let formattedValue = $derived.by(() => {
 		let output;
@@ -35,13 +35,15 @@
 		odd && 'bg-gray-100',
 		id === 'fees' && 'text-rose-800',
 		id === 'fees-total' && 'font-bold text-rose-800',
-		id === 'net' && 'font-bold text-emerald-800'
+		id === 'net' && 'font-bold text-emerald-800',
+		extra && 'leading-none'
 	]}
 >
 	<span
-		class={[warning && 'cursor-help underline decoration-red-600 decoration-wavy decoration-2']}
+		class={[warning && 'cursor-help underline decoration-red-600 decoration-wavy decoration-1']}
 		title={warning ? warning : ''}
 	>
 		{formattedValue}
+		{#if extra}<small class="whitespace-nowrap">{extra}</small>{/if}
 	</span>
 </td>

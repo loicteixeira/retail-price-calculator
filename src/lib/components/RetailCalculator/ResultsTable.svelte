@@ -53,8 +53,9 @@
 					>
 						{group.label}
 					</td>
-					{#each group.rows[0] as { type, value, warning }, cellIndex}
+					{#each group.rows[0] as { extra, type, value, warning }, cellIndex}
 						<ResultsCell
+							{extra}
 							{type}
 							{value}
 							{warning}
@@ -67,8 +68,15 @@
 				{#each group.rows.slice(1) as row, rowIndex}
 					{@const evenRow = (oddGroup * group.rows.length + rowIndex) % 2 === 0}
 					<tr class={['border-inherit [&:not(:last-child)]:border-b', evenRow && 'bg-gray-100']}>
-						{#each row as { type, value, warning }, cellIndex}
-							<ResultsCell {type} {value} {warning} id={columnIds[cellIndex + 1]} {currencyCode} />
+						{#each row as { extra, type, value, warning }, cellIndex}
+							<ResultsCell
+								{extra}
+								{type}
+								{value}
+								{warning}
+								id={columnIds[cellIndex + 1]}
+								{currencyCode}
+							/>
 						{/each}
 					</tr>
 				{/each}

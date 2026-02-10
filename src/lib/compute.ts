@@ -18,6 +18,7 @@ export type ResultsRow = {
 	type: 'currency' | 'number' | 'percent' | 'text';
 	value: string | number | null;
 	warning?: string | null;
+	extra?: string;
 };
 
 export type ComputeFlatResultsOutput = {
@@ -66,6 +67,7 @@ export function computeRetailResults({
 				const itemsCount = buyCount + freeCount;
 				const itemsCost = productInformation.unitCost * itemsCount;
 				const net = listingPrice - itemsCost - calculatedFees.total;
+				const netPerItem = net / itemsCount;
 
 				let margin: number | null = net / listingPrice;
 				margin = isNaN(margin) || margin === -Infinity ? null : margin;
@@ -84,7 +86,8 @@ export function computeRetailResults({
 					{
 						type: 'currency',
 						value: round(net, 2),
-						warning: net <= 0 ? 'Negative net, you are losing money with each sale!' : null
+						warning: net <= 0 ? 'Negative net, you are losing money with each sale!' : null,
+						extra: itemsCount > 1 ? `(${round(netPerItem, 2)} x ${itemsCount})` : undefined
 					},
 					{
 						type: 'percent',
